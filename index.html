@@ -35,25 +35,12 @@
 
   <header id="main-header" class="hidden">
     <div class="header-container">
-      <div id="menu-button" class="menu-button">☰</div>
       <img src="logo.png" alt="Logo" class="header-logo" id="header-logo" />
-      <div class="header-right">
-        <div id="date-display" class="date-display"></div>
-        <div id="time-display" class="time-display"></div>
-        <button id="theme-toggle" class="theme-toggle">🌙</button>
-      </div>
     </div>
-    <nav id="menu-dropdown" class="dropdown hidden">
-      <a data-page="menu">Menu</a>
-      <a data-page="tasks">Tarefas</a>
-      <a data-page="laws">Leis</a>
-      <a data-page="stats">Estatísticas</a>
-      <a data-page="mindset">Mindset</a>
-      <a data-page="history">Histórico</a>
-    </nav>
   </header>
 
   <main id="main-content" class="hidden">
+    <div id="menu-carousel" class="menu-carousel"></div>
     <section id="menu" class="page active">
       <div class="menu-grid">
         <div class="menu-item" data-page="tasks"><img src="acoes.png" alt="Tarefas" /><span>Tarefas</span></div>

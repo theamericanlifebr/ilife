@@ -33,9 +33,6 @@ const aspectImage = document.getElementById('aspect-image');
 const statsSlider = document.getElementById('stats-slider');
 const statsSliderValue = document.getElementById('stats-slider-value');
 
-const menuButton = document.getElementById('menu-button');
-const menuDropdown = document.getElementById('menu-dropdown');
-const themeToggle = document.getElementById('theme-toggle');
 const addTaskBtn = document.getElementById('add-task-btn');
 const taskModal = document.getElementById('task-modal');
 const taskTitleInput = document.getElementById('task-title');
@@ -48,20 +45,9 @@ const completeTaskBtn = document.getElementById('complete-task');
 const addLawBtn = document.getElementById('add-law-btn');
 const lawAspectInput = document.getElementById('law-aspect');
 const headerLogo = document.getElementById('header-logo');
-const dateDisplay = document.getElementById('date-display');
+const menuCarousel = document.getElementById('menu-carousel');
 
-const savedTheme = localStorage.getItem('theme') || 'dark';
-document.body.classList.remove('light', 'dark');
-document.body.classList.add(savedTheme);
-themeToggle.textContent = savedTheme === 'light' ? '🌙' : '☀️';
-
-themeToggle.addEventListener('click', () => {
-  const newTheme = document.body.classList.contains('light') ? 'dark' : 'light';
-  document.body.classList.remove('light', 'dark');
-  document.body.classList.add(newTheme);
-  localStorage.setItem('theme', newTheme);
-  themeToggle.textContent = newTheme === 'light' ? '🌙' : '☀️';
-});
+document.body.classList.add('dark');
 headerLogo.addEventListener('click', () => showPage('menu'));
 
 Promise.all([
@@ -200,10 +186,11 @@ function initApp(firstTime) {
   scheduleNotifications();
   document.getElementById('main-header').classList.remove('hidden');
   document.getElementById('main-content').classList.remove('hidden');
-  updateTime();
-  setInterval(updateTime, 1000);
   setInterval(checkStatsPrompt, 60000);
   checkStatsPrompt();
+  if (window.innerWidth <= 600) {
+    initCarousel();
+  }
 }
 
 function createInitialTasks(startTime) {
@@ -404,43 +391,53 @@ function scheduleNotifications() {
   });
 }
 
-function updateTime() {
-  const now = new Date();
-  document.getElementById('time-display').textContent = now.toLocaleTimeString();
-  dateDisplay.textContent = now.toLocaleDateString();
-}
-
-let hideMenuTimeout;
-function showMenu() {
-  clearTimeout(hideMenuTimeout);
-  menuDropdown.classList.add('show');
-}
-function scheduleHideMenu() {
-  clearTimeout(hideMenuTimeout);
-  hideMenuTimeout = setTimeout(() => menuDropdown.classList.remove('show'), 2000);
-}
-menuButton.addEventListener('mouseenter', showMenu);
-menuButton.addEventListener('mouseleave', scheduleHideMenu);
-menuButton.addEventListener('click', () => {
-  clearTimeout(hideMenuTimeout);
-  menuDropdown.classList.toggle('show');
-});
-menuDropdown.addEventListener('mouseenter', showMenu);
-menuDropdown.addEventListener('mouseleave', scheduleHideMenu);
-
-document.querySelectorAll('#menu-dropdown a').forEach(a => {
-  a.addEventListener('click', e => {
-    showPage(e.target.getAttribute('data-page'));
-    menuDropdown.classList.remove('show');
-  });
-});
-
 document.querySelectorAll('.menu-item').forEach(item => {
   item.addEventListener('click', e => {
     const page = e.currentTarget.getAttribute('data-page');
     showPage(page);
   });
 });
+
+function initCarousel() {
+  const items = [
+    { page: 'tasks', img: 'acoes.png', label: 'Tarefas' },
+    { page: 'laws', img: 'leis.png', label: 'Leis' },
+    { page: 'stats', img: 'estatisticas.png', label: 'Estatísticas' },
+    { page: 'mindset', img: 'mindset.png', label: 'Mindset' },
+    { page: 'constitution', img: 'constituicao.png', label: 'Constituição' },
+    { page: 'history', img: 'historico.png', label: 'Histórico' }
+  ];
+  let idx = 0;
+  const img = document.createElement('img');
+  const span = document.createElement('span');
+  menuCarousel.appendChild(img);
+  menuCarousel.appendChild(span);
+
+  function render() {
+    const item = items[idx];
+    img.src = item.img;
+    img.alt = item.label;
+    span.textContent = item.label;
+    showPage(item.page);
+  }
+
+  render();
+
+  let startX = 0;
+  menuCarousel.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+  });
+  menuCarousel.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (dx > 50) {
+      idx = (idx - 1 + items.length) % items.length;
+      render();
+    } else if (dx < -50) {
+      idx = (idx + 1) % items.length;
+      render();
+    }
+  });
+}
 
 function showPage(pageId) {
   document.querySelectorAll('.page').forEach(sec => sec.classList.remove('active'));
