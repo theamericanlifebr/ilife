@@ -207,20 +207,30 @@ li:hover { transform: scale(1.02); }
 
 .menu-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, 150px);
+  gap: 40px;
+  justify-content: center;
   justify-items: center;
   padding: 40px 0;
+  width: fit-content;
+  margin: 0 auto;
 }
 
 .menu-item {
   text-align: center;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .menu-item img {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
+}
+
+.menu-item span {
+  margin-top: 10px;
 }
 
 .dropdown.show {
