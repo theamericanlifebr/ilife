@@ -1,50 +1,26 @@
-{
-  "Water": [
-    "Beber água a cada hora.",
-    "Carregar garrafa cheia."
-  ],
-  "Nutrition": [
-    "Planejar refeições diárias.",
-    "Evitar alimentos ultraprocessados."
-  ],
-  "Sleep": [
-    "Dormir antes das 23h.",
-    "Evitar telas uma hora antes de dormir."
-  ],
-  "Hygiene": [
-    "Escovar dentes após refeições.",
-    "Tomar banho diário completo."
-  ],
-  "Emocional": [
-    "Respirar fundo antes de agir.",
-    "Praticar gratidão diária."
-  ],
-  "Mindfulness": [
-    "Meditar cinco minutos.",
-    "Focar em uma tarefa por vez."
-  ],
-  "Learning": [
-    "Ler todos os dias.",
-    "Registrar novos aprendizados."
-  ],
-  "Family": [
-    "Ouvir com atenção a família.",
-    "Compartilhar momentos semanais."
-  ],
-  "Relationships": [
-    "Cultivar amizades sinceras.",
-    "Manter comunicação respeitosa."
-  ],
-  "Financial": [
-    "Registrar cada gasto.",
-    "Guardar parte da renda mensal."
-  ],
-  "Purpose": [
-    "Revisar metas mensalmente.",
-    "Agir coerente com propósito."
-  ],
-  "Contribution": [
-    "Ajudar alguém toda semana.",
-    "Cuidar do meio ambiente."
-  ]
-}
+[
+  {"title": "Beber água a cada hora", "description": "Mantenha o corpo sempre hidratado.", "aspect": "Water", "precision": 0},
+  {"title": "Carregar garrafa cheia", "description": "Tenha água à mão durante o dia.", "aspect": "Water", "precision": 0},
+  {"title": "Planejar refeições", "description": "Organize o cardápio diário com qualidade.", "aspect": "Nutrition", "precision": 0},
+  {"title": "Evitar ultraprocessados", "description": "Prefira alimentos naturais.", "aspect": "Nutrition", "precision": 0},
+  {"title": "Dormir antes das 23h", "description": "Garanta descanso adequado.", "aspect": "Sleep", "precision": 0},
+  {"title": "Sem telas antes de dormir", "description": "Desconecte uma hora antes do sono.", "aspect": "Sleep", "precision": 0},
+  {"title": "Escovar após refeições", "description": "Higiene bucal em dia.", "aspect": "Hygiene", "precision": 0},
+  {"title": "Banho diário completo", "description": "Cuide do corpo todo dia.", "aspect": "Hygiene", "precision": 0},
+  {"title": "Respirar antes de agir", "description": "Use a pausa para controlar emoções.", "aspect": "Emotional", "precision": 0},
+  {"title": "Praticar gratidão", "description": "Reconheça algo bom diariamente.", "aspect": "Emotional", "precision": 0},
+  {"title": "Meditar cinco minutos", "description": "Reserve um tempo para a mente.", "aspect": "Mindfulness", "precision": 0},
+  {"title": "Focar em uma tarefa", "description": "Evite multitarefas desnecessárias.", "aspect": "Mindfulness", "precision": 0},
+  {"title": "Ler todos os dias", "description": "Busque conhecimento constantemente.", "aspect": "Learning", "precision": 0},
+  {"title": "Registrar aprendizados", "description": "Anote o que aprendeu.", "aspect": "Learning", "precision": 0},
+  {"title": "Ouvir a família", "description": "Dê atenção verdadeira.", "aspect": "Family", "precision": 0},
+  {"title": "Compartilhar momentos", "description": "Promova encontros semanais.", "aspect": "Family", "precision": 0},
+  {"title": "Cultivar amizades", "description": "Mantenha laços sinceros.", "aspect": "Relationships", "precision": 0},
+  {"title": "Comunicar com respeito", "description": "Use palavras gentis.", "aspect": "Relationships", "precision": 0},
+  {"title": "Registrar gastos", "description": "Anote cada despesa.", "aspect": "Financial", "precision": 0},
+  {"title": "Guardar renda mensal", "description": "Separe parte para poupança.", "aspect": "Financial", "precision": 0},
+  {"title": "Revisar metas", "description": "Ajuste o rumo frequentemente.", "aspect": "Purpose", "precision": 0},
+  {"title": "Agir com propósito", "description": "Mantenha coerência.", "aspect": "Purpose", "precision": 0},
+  {"title": "Ajudar semanalmente", "description": "Pratique atos de serviço.", "aspect": "Contribution", "precision": 0},
+  {"title": "Cuidar do ambiente", "description": "Preserve a natureza.", "aspect": "Contribution", "precision": 0}
+]

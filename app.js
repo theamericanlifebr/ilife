@@ -174,9 +174,6 @@ function initApp(firstTime) {
   } else {
     responses = JSON.parse(localStorage.getItem('responses') || '{}');
   }
-  if (!localStorage.getItem('tasks')) {
-    createInitialTasks(now);
-  }
   buildConstitution();
   buildTasks(previousLogin);
   setInterval(() => buildTasks(previousLogin), 60000);
@@ -191,24 +188,6 @@ function initApp(firstTime) {
   if (window.innerWidth <= 600) {
     initCarousel();
   }
-}
-
-function createInitialTasks(startTime) {
-  const tasks = [];
-  const selected = aspectKeys.filter(k => responses[k]?.importance >= 7);
-  selected.forEach((k, i) => {
-    const def = tasksData[k];
-    if (!def) return;
-    const t = {
-      title: def.title.slice(0, 14),
-      description: def.description.slice(0, 60),
-      startTime: new Date(startTime + (i + 1) * 3600000).toISOString(),
-      aspect: k,
-      completed: false
-    };
-    tasks.push(t);
-  });
-  localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 function buildConstitution() {
@@ -321,7 +300,7 @@ function buildLaws() {
     h3.textContent = k;
     container.appendChild(h3);
     const ul = document.createElement('ul');
-    [...(lawsData[k] || []), ...(custom[k] || [])].forEach(l => {
+    (custom[k] || []).forEach(l => {
       const li = document.createElement('li');
       li.textContent = l;
       ul.appendChild(li);
@@ -359,13 +338,14 @@ function buildStats() {
 function buildMindset() {
   const container = document.getElementById('mindset-content');
   container.innerHTML = '';
+  const custom = JSON.parse(localStorage.getItem('customMindsets') || '{}');
   const keys = aspectKeys.filter(k => responses[k]?.importance > 7);
   keys.forEach(k => {
     const h3 = document.createElement('h3');
     h3.textContent = k;
     container.appendChild(h3);
     const ul = document.createElement('ul');
-    (mindsetData[k] || []).forEach(m => {
+    (custom[k] || []).forEach(m => {
       const li = document.createElement('li');
       li.textContent = m;
       ul.appendChild(li);
