@@ -8,9 +8,11 @@ let currentStep = 0; // 0 importance, 1 level
 let responses = JSON.parse(localStorage.getItem('responses') || '{}');
 let previousLogin = 0;
 let draggedIndex = null;
+let editingTaskIndex = null;
 
 const slider = document.getElementById('slider');
-const sliderValue = document.getElementById('slider-value');
+const sliderFeedback = document.getElementById('slider-feedback');
+const aspectImage = document.getElementById('aspect-image');
 const statsSlider = document.getElementById('stats-slider');
 const statsSliderValue = document.getElementById('stats-slider-value');
 
@@ -57,6 +59,11 @@ Promise.all([
     initApp(false);
   } else {
     setTimeout(() => {
+      const text = document.getElementById('logo-text');
+      text.classList.remove('hidden');
+      requestAnimationFrame(() => text.classList.add('show'));
+    }, 2500);
+    setTimeout(() => {
       const logoScreen = document.getElementById('logo-screen');
       logoScreen.classList.add('fade-out');
       setTimeout(() => {
@@ -64,33 +71,45 @@ Promise.all([
         document.getElementById('question-screen').classList.remove('hidden');
         showQuestion();
       }, 1000);
-    }, 1000);
+    }, 4000);
   }
 });
 
 function showQuestion() {
   const key = aspectKeys[currentIndex];
-  const aspect = aspectsData[key];
-  const title = currentStep === 0 ? aspect.importanceQuestion : aspect.levelQuestion;
-  document.getElementById('question-title').textContent = title;
-  slider.value = currentStep === 0 ? 5 : responses[key]?.level || 5;
-  sliderValue.textContent = slider.value;
+  document.getElementById('question-title').textContent = key;
+  aspectImage.src = `aspect${currentIndex + 1}.png`;
+  slider.value = currentStep === 0 ? (responses[key]?.importance || 50) : (responses[key]?.level || 50);
+  updateFeedback();
   const progress = (currentIndex / aspectKeys.length) * 100;
   document.getElementById('progress-bar').style.width = progress + '%';
 }
 
-slider.addEventListener('input', () => {
-  sliderValue.textContent = slider.value;
-});
+function getFeedback(val) {
+  const v = Number(val);
+  if (v <= 10) return 'Totalmente irrelevante';
+  if (v <= 25) return 'Não é importante';
+  if (v <= 50) return 'Sem prioridade';
+  if (v <= 70) return 'Relevante';
+  if (v <= 85) return 'Muito importante';
+  if (v <= 92) return 'Pilar da vida';
+  return 'Base da vida';
+}
+
+function updateFeedback() {
+  sliderFeedback.textContent = getFeedback(slider.value);
+}
+
+slider.addEventListener('input', updateFeedback);
 
 document.getElementById('next-btn').addEventListener('click', () => {
   const key = aspectKeys[currentIndex];
-  if (!responses[key]) responses[key] = { importance: 0, level: 5 };
+  if (!responses[key]) responses[key] = { importance: 0, level: 50 };
   if (currentStep === 0) {
     responses[key].importance = Number(slider.value);
     currentStep = 1;
-    slider.value = 5;
-    sliderValue.textContent = 5;
+    slider.value = responses[key].level || 50;
+    updateFeedback();
     showQuestion();
   } else {
     responses[key].level = Number(slider.value);
@@ -217,6 +236,7 @@ function buildTasks(previousLogin) {
   tasks.forEach((t, index) => {
     const div = document.createElement('div');
     div.className = 'task-item';
+    div.dataset.index = index;
     if (t.completed) div.classList.add('completed');
     const h3 = document.createElement('h3');
     h3.textContent = t.title;
@@ -232,6 +252,16 @@ function buildTasks(previousLogin) {
       localStorage.setItem('tasks', JSON.stringify(tasks));
       buildTasks(previousLogin);
     });
+    let pressTimer;
+    const start = () => {
+      pressTimer = setTimeout(() => openTaskModal(index), 500);
+    };
+    const cancel = () => clearTimeout(pressTimer);
+    div.addEventListener('mousedown', start);
+    div.addEventListener('touchstart', start);
+    div.addEventListener('mouseup', cancel);
+    div.addEventListener('mouseleave', cancel);
+    div.addEventListener('touchend', cancel);
     const time = new Date(t.startTime).getTime();
     if (t.completed) {
       completed.appendChild(div);
@@ -360,6 +390,13 @@ document.querySelectorAll('#menu-dropdown a').forEach(a => {
   });
 });
 
+document.querySelectorAll('.menu-item').forEach(item => {
+  item.addEventListener('click', e => {
+    const page = e.currentTarget.getAttribute('data-page');
+    showPage(page);
+  });
+});
+
 function showPage(pageId) {
   document.querySelectorAll('.page').forEach(sec => sec.classList.remove('active'));
   const section = document.getElementById(pageId);
@@ -413,14 +450,36 @@ function checkStatsPrompt() {
   }
 }
 
-addTaskBtn.addEventListener('click', openTaskModal);
+addTaskBtn.addEventListener('click', () => openTaskModal());
 saveTaskBtn.addEventListener('click', saveTask);
 cancelTaskBtn.addEventListener('click', closeTaskModal);
 
-function openTaskModal() {
+function openTaskModal(index = null) {
+  editingTaskIndex = index;
+  taskAspectInput.innerHTML = '';
+  aspectKeys.forEach(k => {
+    const opt = document.createElement('option');
+    opt.value = k;
+    opt.textContent = k;
+    taskAspectInput.appendChild(opt);
+  });
   const now = new Date().toISOString().slice(0,16);
   taskDatetimeInput.min = now;
-  taskDatetimeInput.value = now;
+  if (index !== null) {
+    const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+    const t = tasks[index];
+    taskTitleInput.value = t.title;
+    taskDescInput.value = t.description;
+    taskDatetimeInput.value = t.startTime.slice(0,16);
+    taskAspectInput.value = t.aspect;
+    document.querySelector('#task-modal h2').textContent = 'Editar tarefa';
+  } else {
+    taskTitleInput.value = '';
+    taskDescInput.value = '';
+    taskDatetimeInput.value = now;
+    taskAspectInput.value = aspectKeys[0] || '';
+    document.querySelector('#task-modal h2').textContent = 'Nova tarefa';
+  }
   taskModal.classList.add('show');
   taskModal.classList.remove('hidden');
 }
@@ -428,6 +487,7 @@ function openTaskModal() {
 function closeTaskModal() {
   taskModal.classList.remove('show');
   taskModal.classList.add('hidden');
+  editingTaskIndex = null;
 }
 
 function saveTask() {
@@ -436,23 +496,25 @@ function saveTask() {
   const description = taskDescInput.value.trim();
   const datetime = taskDatetimeInput.value;
   if (!datetime) return;
-  const aspect = taskAspectInput.value.trim();
+  const aspect = taskAspectInput.value;
   if (new Date(datetime) <= new Date()) {
     alert('Selecione um horário futuro');
     return;
   }
   const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
-  tasks.push({
+  const taskObj = {
     title: title.slice(0, 14),
     description: (description || '').slice(0, 60),
     startTime: new Date(datetime).toISOString(),
     aspect,
     completed: false
-  });
+  };
+  if (editingTaskIndex !== null) {
+    tasks[editingTaskIndex] = taskObj;
+  } else {
+    tasks.push(taskObj);
+  }
   localStorage.setItem('tasks', JSON.stringify(tasks));
-  taskTitleInput.value = '';
-  taskDescInput.value = '';
-  taskAspectInput.value = '';
   closeTaskModal();
   buildTasks(previousLogin);
 }
