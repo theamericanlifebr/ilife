@@ -27,8 +27,13 @@ const taskDatetimeInput = document.getElementById('task-datetime');
 const taskAspectInput = document.getElementById('task-aspect');
 const saveTaskBtn = document.getElementById('save-task');
 const cancelTaskBtn = document.getElementById('cancel-task');
+const completeTaskBtn = document.getElementById('complete-task');
+const addLawBtn = document.getElementById('add-law-btn');
+const lawAspectInput = document.getElementById('law-aspect');
+const headerLogo = document.getElementById('header-logo');
+const dateDisplay = document.getElementById('date-display');
 
-const savedTheme = localStorage.getItem('theme') || 'light';
+const savedTheme = localStorage.getItem('theme') || 'dark';
 document.body.classList.remove('light', 'dark');
 document.body.classList.add(savedTheme);
 themeToggle.textContent = savedTheme === 'light' ? '🌙' : '☀️';
@@ -40,6 +45,7 @@ themeToggle.addEventListener('click', () => {
   localStorage.setItem('theme', newTheme);
   themeToggle.textContent = newTheme === 'light' ? '🌙' : '☀️';
 });
+headerLogo.addEventListener('click', () => showPage('menu'));
 
 Promise.all([
   fetch('data/aspects.json').then(r => r.json()),
@@ -237,7 +243,6 @@ function buildTasks(previousLogin) {
     const div = document.createElement('div');
     div.className = 'task-item';
     div.dataset.index = index;
-    if (t.completed) div.classList.add('completed');
     const h3 = document.createElement('h3');
     h3.textContent = t.title;
     const p = document.createElement('p');
@@ -264,11 +269,13 @@ function buildTasks(previousLogin) {
     div.addEventListener('touchend', cancel);
     const time = new Date(t.startTime).getTime();
     if (t.completed) {
+      div.classList.add('completed');
       completed.appendChild(div);
     } else if (time < now) {
       div.classList.add('overdue');
       overdue.appendChild(div);
     } else {
+      div.classList.add('pending');
       pending.appendChild(div);
     }
   });
@@ -298,13 +305,19 @@ function handleDrop(e) {
 function buildLaws() {
   const container = document.getElementById('laws-list');
   container.innerHTML = '';
+  lawAspectInput.innerHTML = '';
+  const custom = JSON.parse(localStorage.getItem('customLaws') || '{}');
   const keys = aspectKeys.filter(k => responses[k]?.importance >= 7);
   keys.forEach(k => {
+    const opt = document.createElement('option');
+    opt.value = k;
+    opt.textContent = k;
+    lawAspectInput.appendChild(opt);
     const h3 = document.createElement('h3');
     h3.textContent = k;
     container.appendChild(h3);
     const ul = document.createElement('ul');
-    (lawsData[k] || []).forEach(l => {
+    [...(lawsData[k] || []), ...(custom[k] || [])].forEach(l => {
       const li = document.createElement('li');
       li.textContent = l;
       ul.appendChild(li);
@@ -312,6 +325,19 @@ function buildLaws() {
     container.appendChild(ul);
   });
 }
+
+function addLaw() {
+  const aspect = lawAspectInput.value;
+  const text = prompt('Digite a nova lei:');
+  if (!text) return;
+  const custom = JSON.parse(localStorage.getItem('customLaws') || '{}');
+  if (!custom[aspect]) custom[aspect] = [];
+  custom[aspect].push(text);
+  localStorage.setItem('customLaws', JSON.stringify(custom));
+  buildLaws();
+}
+
+addLawBtn.addEventListener('click', addLaw);
 
 function buildStats() {
   const container = document.getElementById('stats-content');
@@ -362,7 +388,9 @@ function scheduleNotifications() {
 }
 
 function updateTime() {
-  document.getElementById('time-display').textContent = new Date().toLocaleTimeString();
+  const now = new Date();
+  document.getElementById('time-display').textContent = now.toLocaleTimeString();
+  dateDisplay.textContent = now.toLocaleDateString();
 }
 
 let hideMenuTimeout;
@@ -453,6 +481,7 @@ function checkStatsPrompt() {
 addTaskBtn.addEventListener('click', () => openTaskModal());
 saveTaskBtn.addEventListener('click', saveTask);
 cancelTaskBtn.addEventListener('click', closeTaskModal);
+completeTaskBtn.addEventListener('click', completeTask);
 
 function openTaskModal(index = null) {
   editingTaskIndex = index;
@@ -473,12 +502,18 @@ function openTaskModal(index = null) {
     taskDatetimeInput.value = t.startTime.slice(0,16);
     taskAspectInput.value = t.aspect;
     document.querySelector('#task-modal h2').textContent = 'Editar tarefa';
+    if (!t.completed) {
+      completeTaskBtn.classList.remove('hidden');
+    } else {
+      completeTaskBtn.classList.add('hidden');
+    }
   } else {
     taskTitleInput.value = '';
     taskDescInput.value = '';
     taskDatetimeInput.value = now;
     taskAspectInput.value = aspectKeys[0] || '';
     document.querySelector('#task-modal h2').textContent = 'Nova tarefa';
+    completeTaskBtn.classList.add('hidden');
   }
   taskModal.classList.add('show');
   taskModal.classList.remove('hidden');
@@ -514,6 +549,15 @@ function saveTask() {
   } else {
     tasks.push(taskObj);
   }
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+  closeTaskModal();
+  buildTasks(previousLogin);
+}
+
+function completeTask() {
+  if (editingTaskIndex === null) return;
+  const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+  tasks[editingTaskIndex].completed = true;
   localStorage.setItem('tasks', JSON.stringify(tasks));
   closeTaskModal();
   buildTasks(previousLogin);

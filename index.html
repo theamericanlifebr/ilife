@@ -5,7 +5,7 @@
   <title>Presidencial</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="light">
+<body class="dark">
   <div id="logo-screen" class="center">
     <img src="logo.png" alt="Logo" id="logo" />
     <p id="logo-text" class="hidden">Construa a si mesmo</p>
@@ -35,8 +35,9 @@
   <header id="main-header" class="hidden">
     <div class="header-container">
       <div id="menu-button" class="menu-button">☰</div>
-      <img src="logo.png" alt="Logo" class="header-logo" />
+      <img src="logo.png" alt="Logo" class="header-logo" id="header-logo" />
       <div class="header-right">
+        <div id="date-display" class="date-display"></div>
         <div id="time-display" class="time-display"></div>
         <button id="theme-toggle" class="theme-toggle">🌙</button>
       </div>
@@ -54,12 +55,12 @@
   <main id="main-content" class="hidden">
     <section id="menu" class="page active">
       <div class="menu-grid">
-        <div class="menu-item" data-page="history"><img src="historico.png" alt="Histórico" /><span>Histórico</span></div>
-        <div class="menu-item" data-page="mindset"><img src="mindset.png" alt="Mindset" /><span>Mindset</span></div>
-        <div class="menu-item" data-page="laws"><img src="leis.png" alt="Leis" /><span>Leis</span></div>
-        <div class="menu-item" data-page="constitution"><img src="constituicao.png" alt="Constituição" /><span>Constituição</span></div>
-        <div class="menu-item" data-page="stats"><img src="estatisticas.png" alt="Estatísticas" /><span>Estatísticas</span></div>
         <div class="menu-item" data-page="tasks"><img src="acoes.png" alt="Tarefas" /><span>Tarefas</span></div>
+        <div class="menu-item" data-page="laws"><img src="leis.png" alt="Leis" /><span>Leis</span></div>
+        <div class="menu-item" data-page="stats"><img src="estatisticas.png" alt="Estatísticas" /><span>Estatísticas</span></div>
+        <div class="menu-item" data-page="mindset"><img src="mindset.png" alt="Mindset" /><span>Mindset</span></div>
+        <div class="menu-item" data-page="constitution"><img src="constituicao.png" alt="Constituição" /><span>Constituição</span></div>
+        <div class="menu-item" data-page="history"><img src="historico.png" alt="Histórico" /><span>Histórico</span></div>
       </div>
     </section>
     <section id="tasks" class="page">
@@ -82,6 +83,10 @@
     </section>
     <section id="laws" class="page">
       <h1>Leis</h1>
+      <div id="laws-hub">
+        <button id="add-law-btn">Nova lei</button>
+        <select id="law-aspect"></select>
+      </div>
       <div id="laws-list"></div>
     </section>
     <section id="stats" class="page">
@@ -110,6 +115,7 @@
       <input type="datetime-local" id="task-datetime" />
       <select id="task-aspect"></select>
       <button id="save-task">Salvar</button>
+      <button id="complete-task" class="hidden">Concluir</button>
       <button id="cancel-task">Cancelar</button>
     </div>
   </div>

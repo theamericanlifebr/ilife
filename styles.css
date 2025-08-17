@@ -148,7 +148,6 @@ li:hover { transform: scale(1.02); }
 
 .header-logo {
   height: 40px;
-  filter: brightness(0) invert(1);
 }
 
 #logo-screen #logo {
@@ -207,7 +206,6 @@ li:hover { transform: scale(1.02); }
 
 .menu-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 150px);
   gap: 40px;
   justify-content: center;
   justify-items: center;
@@ -227,6 +225,11 @@ li:hover { transform: scale(1.02); }
 .menu-item img {
   width: 150px;
   height: 150px;
+  transition: transform 0.3s ease;
+}
+
+.menu-item:hover img {
+  transform: scale(1.05);
 }
 
 .menu-item span {
@@ -265,10 +268,23 @@ li:hover { transform: scale(1.02); }
 .page.active { display: block; }
 
 .task-item {
-  background: rgba(0,0,0,0.05);
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 8px;
+}
+
+.task-item.pending {
+  background: linear-gradient(135deg, #40E0D0, #7FFFD4);
+}
+
+.task-item.overdue {
+  background: linear-gradient(135deg, #FF5F6D, #FFC371);
+}
+
+.task-item.completed {
+  background: linear-gradient(135deg, #58D68D, #A9DFBF);
+  opacity: 0.8;
+  text-decoration: line-through;
 }
 
 .task-item h3 {
@@ -289,13 +305,12 @@ li:hover { transform: scale(1.02); }
   margin-bottom: 20px;
 }
 
-.task-item.overdue {
-  border: 2px solid red;
+#laws-hub {
+  margin-bottom: 20px;
 }
 
-.task-item.completed {
-  opacity: 0.6;
-  text-decoration: line-through;
+.date-display {
+  font-size: 16px;
 }
 
 @keyframes fade {
@@ -374,6 +389,30 @@ li:hover { transform: scale(1.02); }
   #progress-bar { border-radius: 3px; }
   .header-logo { height: 32px; }
   .menu-button { font-size: 20px; }
-  .time-display { font-size: 14px; }
+  .time-display, .date-display { font-size: 14px; }
   .header-container { padding: 10px; }
+  .menu-grid {
+    grid-template-columns: repeat(2, 300px);
+    gap: 20px;
+  }
+  .menu-item img {
+    width: 300px;
+    height: 300px;
+    animation: float 3s ease-in-out infinite alternate;
+  }
+}
+
+@media (min-width: 601px) {
+  .menu-grid {
+    grid-template-columns: repeat(3, 225px);
+  }
+  .menu-item img {
+    width: 225px;
+    height: 225px;
+  }
+}
+
+@keyframes float {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
 }
