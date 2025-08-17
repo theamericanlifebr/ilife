@@ -338,6 +338,27 @@ li:hover { transform: scale(1.02); }
   display: flex;
 }
 
+#law-modal,
+#mindset-modal,
+#law-action-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1500;
+}
+
+#law-modal.show,
+#mindset-modal.show,
+#law-action-modal.show {
+  display: flex;
+}
+
 .task-form {
   background: var(--bg-color);
   color: var(--text-color);
@@ -359,6 +380,36 @@ li:hover { transform: scale(1.02); }
 
 .task-form button {
   width: 100%;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.law-box,
+.mindset-box {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  color: #fff;
+}
+
+.accept-btn {
+  background: #44B816;
+}
+
+.accept-btn:hover {
+  background: #6CD932;
+}
+
+.decline-btn {
+  background: #FF5F6D;
+}
+
+.decline-btn:hover {
+  background: #FFC371;
 }
 
 @media (max-width: 600px) {

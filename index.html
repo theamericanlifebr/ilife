@@ -75,7 +75,6 @@
       <div id="laws-hub">
         <button id="add-law-btn">Nova lei</button>
         <button id="suggest-law-btn">Ver ideias</button>
-        <select id="law-aspect"></select>
       </div>
       <div id="laws-list"></div>
     </section>
@@ -88,7 +87,6 @@
       <div id="mindset-hub">
         <button id="add-mindset-btn">Criar mindset</button>
         <button id="suggest-mindset-btn">Ver ideias</button>
-        <select id="mindset-aspect"></select>
       </div>
       <div id="mindset-content"></div>
     </section>
@@ -109,9 +107,53 @@
       <textarea id="task-desc" placeholder="Descrição"></textarea>
       <input type="datetime-local" id="task-datetime" />
       <select id="task-aspect"></select>
+      <select id="task-type">
+        <option value="Hábito">Hábito</option>
+        <option value="Tarefa">Tarefa</option>
+      </select>
       <button id="save-task">Salvar</button>
       <button id="complete-task" class="hidden">Concluir</button>
       <button id="cancel-task">Cancelar</button>
+    </div>
+  </div>
+
+  <div id="law-modal" class="hidden">
+    <div class="task-form">
+      <h2>Nova lei</h2>
+      <input type="text" id="law-title" placeholder="Nome da lei" maxlength="24" />
+      <textarea id="law-desc" placeholder="Descrição (até 60 caracteres)" maxlength="60"></textarea>
+      <select id="law-aspect-select"></select>
+      <div class="modal-buttons">
+        <button id="save-law">Salvar</button>
+        <button id="accept-law" class="hidden accept-btn">Aceitar</button>
+        <button id="decline-law" class="hidden decline-btn">Declinar</button>
+        <button id="cancel-law">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="law-action-modal" class="hidden">
+    <div class="task-form">
+      <h2>Lei</h2>
+      <button id="revoke-law" class="decline-btn">Revogar</button>
+      <button id="cancel-law-action">Voltar</button>
+    </div>
+  </div>
+
+  <div id="mindset-modal" class="hidden">
+    <div class="task-form">
+      <h2>Novo mindset</h2>
+      <input type="text" id="mindset-title" placeholder="Título" maxlength="24" />
+      <textarea id="mindset-desc" placeholder="Descrição (até 60 caracteres)" maxlength="60"></textarea>
+      <label for="mindset-rate">Importância: <span id="mindset-rate-value">50</span></label>
+      <input type="range" id="mindset-rate" min="0" max="100" value="50" />
+      <select id="mindset-aspect-select"></select>
+      <div class="modal-buttons">
+        <button id="save-mindset">Salvar</button>
+        <button id="accept-mindset" class="hidden accept-btn">Aceitar</button>
+        <button id="decline-mindset" class="hidden decline-btn">Declinar</button>
+        <button id="cancel-mindset">Cancelar</button>
+      </div>
     </div>
   </div>
 
