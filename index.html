@@ -8,16 +8,18 @@
 <body class="light">
   <div id="logo-screen" class="center">
     <img src="logo.png" alt="Logo" id="logo" />
+    <p id="logo-text" class="hidden">Construa a si mesmo</p>
   </div>
 
   <div id="question-screen" class="hidden center">
     <h1 id="question-title"></h1>
+    <img id="aspect-image" class="aspect-image" alt="Aspecto" />
     <div class="progress-container">
       <div id="progress-bar"></div>
     </div>
+    <div id="slider-feedback" class="slider-feedback"></div>
     <div class="slider-container">
-      <input type="range" min="1" max="10" value="5" id="slider" />
-      <span id="slider-value">5</span>
+      <input type="range" min="0" max="100" value="50" id="slider" />
     </div>
     <button id="next-btn">Próximo</button>
   </div>
@@ -40,7 +42,7 @@
       </div>
     </div>
     <nav id="menu-dropdown" class="dropdown hidden">
-      <a data-page="constitution">Constituição</a>
+      <a data-page="menu">Menu</a>
       <a data-page="tasks">Tarefas</a>
       <a data-page="laws">Leis</a>
       <a data-page="stats">Estatísticas</a>
@@ -50,9 +52,15 @@
   </header>
 
   <main id="main-content" class="hidden">
-    <section id="constitution" class="page active">
-      <h1>Constituição</h1>
-      <div id="constitution-content"></div>
+    <section id="menu" class="page active">
+      <div class="menu-grid">
+        <div class="menu-item" data-page="history"><img src="historico.png" alt="Histórico" /><span>Histórico</span></div>
+        <div class="menu-item" data-page="mindset"><img src="mindset.png" alt="Mindset" /><span>Mindset</span></div>
+        <div class="menu-item" data-page="laws"><img src="leis.png" alt="Leis" /><span>Leis</span></div>
+        <div class="menu-item" data-page="constitution"><img src="constituicao.png" alt="Constituição" /><span>Constituição</span></div>
+        <div class="menu-item" data-page="stats"><img src="estatisticas.png" alt="Estatísticas" /><span>Estatísticas</span></div>
+        <div class="menu-item" data-page="tasks"><img src="acoes.png" alt="Tarefas" /><span>Tarefas</span></div>
+      </div>
     </section>
     <section id="tasks" class="page">
       <h1>Tarefas</h1>
@@ -88,6 +96,10 @@
       <h1>Histórico</h1>
       <p>Em desenvolvimento...</p>
     </section>
+    <section id="constitution" class="page">
+      <h1>Constituição</h1>
+      <div id="constitution-content"></div>
+    </section>
   </main>
 
   <div id="task-modal" class="hidden">
@@ -96,7 +108,7 @@
       <input type="text" id="task-title" placeholder="Título" />
       <textarea id="task-desc" placeholder="Descrição"></textarea>
       <input type="datetime-local" id="task-datetime" />
-      <input type="text" id="task-aspect" placeholder="Aspecto" />
+      <select id="task-aspect"></select>
       <button id="save-task">Salvar</button>
       <button id="cancel-task">Cancelar</button>
     </div>
