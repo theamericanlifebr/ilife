@@ -10,6 +10,21 @@ let previousLogin = 0;
 let draggedIndex = null;
 let editingTaskIndex = null;
 
+const statsColors = {
+  Family: ['#ff4d4d', '#ff6666'],
+  Relationships: ['#ffd700', '#ffea00'],
+  Nutrition: ['#66bb6a', '#81c784'],
+  Sleep: ['#003366', '#004080'],
+  Water: ['#00bcd4', '#26c6da'],
+  Emocional: ['#64b5f6', '#90caf9'],
+  Hygiene: ['#b3e5fc', '#e1f5fe'],
+  Mindfulness: ['#c0c0c0', '#d3d3d3'],
+  Learning: ['#ffb300', '#ffca28'],
+  Financial: ['#2e7d32', '#388e3c'],
+  Purpose: ['#7e57c2', '#9575cd'],
+  Contribution: ['#ffffff', '#f5f5f5']
+};
+
 // Prevent copying, context menu, and zoom interactions
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('copy', e => e.preventDefault());
@@ -338,14 +353,31 @@ suggestLawBtn.addEventListener('click', () => {
 function buildStats() {
   const container = document.getElementById('stats-content');
   container.innerHTML = '';
-  const ul = document.createElement('ul');
   aspectKeys.forEach(k => {
-    if (!responses[k]) return;
-    const li = document.createElement('li');
-    li.textContent = `${k}: nível ${responses[k].level}`;
-    ul.appendChild(li);
+    const box = document.createElement('div');
+    box.className = 'stats-box';
+
+    const title = document.createElement('span');
+    title.className = 'stats-title';
+    title.textContent = k;
+    box.appendChild(title);
+
+    const progress = document.createElement('div');
+    progress.className = 'stats-progress';
+
+    const bar = document.createElement('div');
+    bar.className = 'stats-bar';
+    const level = responses[k]?.level || 0;
+    bar.style.width = level + '%';
+    const colors = statsColors[k];
+    if (colors) {
+      bar.style.background = `linear-gradient(to right, ${colors[0]}, ${colors[1]})`;
+    }
+    progress.appendChild(bar);
+    box.appendChild(progress);
+
+    container.appendChild(box);
   });
-  container.appendChild(ul);
 }
 
 function buildMindset() {
