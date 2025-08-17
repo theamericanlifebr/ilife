@@ -1,0 +1,122 @@
+{
+  "Water": {
+    "importanceQuestion": "De 1 a 10, qual a importância da sua hidratação diária para o seu bem-estar?",
+    "levelQuestion": "Qual o nível atual da sua hidratação diária hoje?",
+    "speech": "Comprometo-me a manter meu corpo hidratado, combustível vital para a liderança da minha vida.",
+    "truths": [
+      "Sem água, o corpo e a mente entram em colapso.",
+      "Hidratação é energia em estado líquido.",
+      "Pequenas doses frequentes superam grandes doses raras."
+    ]
+  },
+  "Nutrition": {
+    "importanceQuestion": "De 1 a 10, qual a importância de manter uma alimentação equilibrada para sua vida?",
+    "levelQuestion": "Qual o nível atual da sua alimentação equilibrada hoje?",
+    "speech": "Prometo alimentar meu corpo com equilíbrio para sustentar força e clareza mental.",
+    "truths": [
+      "Você é o que absorve, não só o que come.",
+      "Comer bem é investir em energia futura.",
+      "Má alimentação sabota até o melhor plano."
+    ]
+  },
+  "Sleep": {
+    "importanceQuestion": "De 1 a 10, quão essencial é ter um sono de qualidade para seu desempenho diário?",
+    "levelQuestion": "Qual o nível atual da qualidade do seu sono hoje?",
+    "speech": "Defendo o sono de qualidade como pilar de energia e decisões acertadas.",
+    "truths": [
+      "Dormir bem é como reiniciar o sistema.",
+      "Privação de sono rouba clareza e paciência.",
+      "Recuperação é parte do treinamento."
+    ]
+  },
+  "Hygiene": {
+    "importanceQuestion": "De 1 a 10, quão importante é manter bons hábitos de higiene para sua saúde?",
+    "levelQuestion": "Qual o nível atual dos seus hábitos de higiene hoje?",
+    "speech": "Manterei a higiene como escudo contra doenças e base para a confiança.",
+    "truths": [
+      "Cuidar do corpo evita doenças invisíveis.",
+      "Higiene é respeito próprio.",
+      "Limpeza física apoia clareza mental."
+    ]
+  },
+  "Emocional": {
+    "importanceQuestion": "De 1 a 10, como você valoriza o autocontrole emocional e a resiliência?",
+    "levelQuestion": "Qual o nível atual do seu autocontrole emocional hoje?",
+    "speech": "Cultivarei autocontrole e resiliência para governar minha mente com sabedoria.",
+    "truths": [
+      "Emoções controladas, decisões melhores.",
+      "Resiliência é o músculo da mente.",
+      "Pausa antes da reação é poder."
+    ]
+  },
+  "Mindfulness": {
+    "importanceQuestion": "De 1 a 10, quão importante é manter foco e presença plena no dia a dia?",
+    "levelQuestion": "Qual o nível atual do seu foco e presença hoje?",
+    "speech": "Manterei foco e presença para honrar cada momento com intenção.",
+    "truths": [
+      "Foco é dizer não ao que não importa.",
+      "Presença plena é poder absoluto.",
+      "Quem vive no agora, decide melhor."
+    ]
+  },
+  "Learning": {
+    "importanceQuestion": "De 1 a 10, como você valoriza aprender coisas novas constantemente?",
+    "levelQuestion": "Qual o nível atual do seu aprendizado constante hoje?",
+    "speech": "Investirei no aprendizado contínuo como chave para minha evolução.",
+    "truths": [
+      "Aprender é ampliar a liberdade.",
+      "Conhecimento é combustível de oportunidades.",
+      "Cada lição é uma ferramenta nova."
+    ]
+  },
+  "Family": {
+    "importanceQuestion": "De 1 a 10, quão importante é cuidar dos seus vínculos familiares?",
+    "levelQuestion": "Qual o nível atual do cuidado com seus vínculos familiares hoje?",
+    "speech": "Preservarei e fortalecerei meus laços familiares como núcleo de apoio.",
+    "truths": [
+      "Laços familiares sustentam momentos difíceis.",
+      "Família é história viva.",
+      "Quem cuida, colhe amor de volta."
+    ]
+  },
+  "Relationships": {
+    "importanceQuestion": "De 1 a 10, quão importante é manter relações externas saudáveis?",
+    "levelQuestion": "Qual o nível atual das suas relações externas hoje?",
+    "speech": "Construirei conexões saudáveis que ampliem minha visão e força.",
+    "truths": [
+      "Boas relações abrem portas invisíveis.",
+      "Você é a média das pessoas com quem convive.",
+      "Relações saudáveis fortalecem a saúde mental."
+    ]
+  },
+  "Financial": {
+    "importanceQuestion": "De 1 a 10, como você valoriza sua segurança e liberdade financeira?",
+    "levelQuestion": "Qual o nível atual da sua segurança e liberdade financeira hoje?",
+    "speech": "Buscarei estabilidade financeira para garantir minha liberdade de escolha.",
+    "truths": [
+      "Dinheiro compra tempo e escolhas.",
+      "Segurança financeira reduz ansiedade.",
+      "Organização é o alicerce da liberdade econômica."
+    ]
+  },
+  "Purpose": {
+    "importanceQuestion": "De 1 a 10, quão importante é ter propósito e metas de vida claras?",
+    "levelQuestion": "Qual o nível atual de clareza do seu propósito e metas hoje?",
+    "speech": "Viverei com propósito e metas claras, guiando cada passo com sentido.",
+    "truths": [
+      "Quem tem um porquê, enfrenta qualquer como.",
+      "Metas claras aceleram decisões.",
+      "Viver com propósito dá sentido ao esforço."
+    ]
+  },
+  "Contribution": {
+    "importanceQuestion": "De 1 a 10, como você valoriza contribuir para o mundo de forma positiva?",
+    "levelQuestion": "Qual o nível atual da sua contribuição positiva hoje?",
+    "speech": "Contribuirei para um mundo melhor, deixando marcas positivas.",
+    "truths": [
+      "O que você dá volta multiplicado.",
+      "Contribuir é plantar legado.",
+      "Impacto positivo é a marca de líderes reais."
+    ]
+  }
+}

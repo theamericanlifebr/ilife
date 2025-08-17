@@ -1,0 +1,50 @@
+{
+  "Water": [
+    "Beber água a cada hora.",
+    "Carregar garrafa cheia."
+  ],
+  "Nutrition": [
+    "Planejar refeições diárias.",
+    "Evitar alimentos ultraprocessados."
+  ],
+  "Sleep": [
+    "Dormir antes das 23h.",
+    "Evitar telas uma hora antes de dormir."
+  ],
+  "Hygiene": [
+    "Escovar dentes após refeições.",
+    "Tomar banho diário completo."
+  ],
+  "Emocional": [
+    "Respirar fundo antes de agir.",
+    "Praticar gratidão diária."
+  ],
+  "Mindfulness": [
+    "Meditar cinco minutos.",
+    "Focar em uma tarefa por vez."
+  ],
+  "Learning": [
+    "Ler todos os dias.",
+    "Registrar novos aprendizados."
+  ],
+  "Family": [
+    "Ouvir com atenção a família.",
+    "Compartilhar momentos semanais."
+  ],
+  "Relationships": [
+    "Cultivar amizades sinceras.",
+    "Manter comunicação respeitosa."
+  ],
+  "Financial": [
+    "Registrar cada gasto.",
+    "Guardar parte da renda mensal."
+  ],
+  "Purpose": [
+    "Revisar metas mensalmente.",
+    "Agir coerente com propósito."
+  ],
+  "Contribution": [
+    "Ajudar alguém toda semana.",
+    "Cuidar do meio ambiente."
+  ]
+}

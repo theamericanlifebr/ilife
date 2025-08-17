@@ -1,0 +1,50 @@
+{
+  "Water": {
+    "title": "Beber água",
+    "description": "Beba dois copos de água para energizar seu corpo."
+  },
+  "Nutrition": {
+    "title": "Refeição leve",
+    "description": "Planeje uma refeição equilibrada com verduras e proteínas."
+  },
+  "Sleep": {
+    "title": "Sono cedo",
+    "description": "Durma cedo e garanta oito horas de recuperação."
+  },
+  "Hygiene": {
+    "title": "Higiene dia",
+    "description": "Cuide do corpo com banho e escovação completos hoje."
+  },
+  "Emocional": {
+    "title": "Auto controle",
+    "description": "Respire fundo antes de reagir a cada situação."
+  },
+  "Mindfulness": {
+    "title": "Foco total",
+    "description": "Pare por cinco minutos e observe sua respiração."
+  },
+  "Learning": {
+    "title": "Estudo curto",
+    "description": "Leia ou aprenda algo novo por quinze minutos."
+  },
+  "Family": {
+    "title": "Chamar família",
+    "description": "Converse com um familiar e fortaleça seus laços."
+  },
+  "Relationships": {
+    "title": "Conectar rede",
+    "description": "Envie mensagem sincera para um amigo distante."
+  },
+  "Financial": {
+    "title": "Revisar conta",
+    "description": "Cheque gastos de hoje e atualize seu orçamento."
+  },
+  "Purpose": {
+    "title": "Rever metas",
+    "description": "Leia suas metas e ajuste ações para alinhá-las."
+  },
+  "Contribution": {
+    "title": "Ação social",
+    "description": "Faça um ato de gentileza que ajude outra pessoa."
+  }
+}

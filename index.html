@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Presidencial</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="light">
+  <div id="logo-screen" class="center">
+    <img src="logo.png" alt="Logo" id="logo" />
+  </div>
+
+  <div id="question-screen" class="hidden center">
+    <h1 id="question-title"></h1>
+    <div class="progress-container">
+      <div id="progress-bar"></div>
+    </div>
+    <div class="slider-container">
+      <input type="range" min="1" max="10" value="5" id="slider" />
+      <span id="slider-value">5</span>
+    </div>
+    <button id="next-btn">Próximo</button>
+  </div>
+
+  <div id="name-screen" class="hidden center">
+    <h1>Assuma a Presidência</h1>
+    <p id="oath-text"></p>
+    <input type="text" id="username" placeholder="Seu nome" />
+    <label class="agree"><input type="checkbox" id="agree" /> Concordo</label>
+    <button id="start-btn" disabled>Continuar</button>
+  </div>
+
+  <header id="main-header" class="hidden">
+    <div class="header-container">
+      <div id="menu-button" class="menu-button">☰</div>
+      <img src="logo.png" alt="Logo" class="header-logo" />
+      <div class="header-right">
+        <div id="time-display" class="time-display"></div>
+        <button id="theme-toggle" class="theme-toggle">🌙</button>
+      </div>
+    </div>
+    <nav id="menu-dropdown" class="dropdown hidden">
+      <a data-page="constitution">Constituição</a>
+      <a data-page="tasks">Tarefas</a>
+      <a data-page="laws">Leis</a>
+      <a data-page="stats">Estatísticas</a>
+      <a data-page="mindset">Mindset</a>
+      <a data-page="history">Histórico</a>
+    </nav>
+  </header>
+
+  <main id="main-content" class="hidden">
+    <section id="constitution" class="page active">
+      <h1>Constituição</h1>
+      <div id="constitution-content"></div>
+    </section>
+    <section id="tasks" class="page">
+      <h1>Tarefas</h1>
+      <div id="tasks-hub">
+        <button id="add-task-btn">Nova tarefa</button>
+      </div>
+      <div id="tasks-pending">
+        <h2>Pendentes</h2>
+        <div class="task-group" id="pending-list"></div>
+      </div>
+      <div id="tasks-completed">
+        <h2>Concluídas</h2>
+        <div class="task-group" id="completed-list"></div>
+      </div>
+      <div id="tasks-overdue">
+        <h2>Atrasadas</h2>
+        <div class="task-group" id="overdue-list"></div>
+      </div>
+    </section>
+    <section id="laws" class="page">
+      <h1>Leis</h1>
+      <div id="laws-list"></div>
+    </section>
+    <section id="stats" class="page">
+      <h1>Stats</h1>
+      <div id="stats-content"></div>
+    </section>
+    <section id="mindset" class="page">
+      <h1>Mindset</h1>
+      <div id="mindset-content"></div>
+    </section>
+    <section id="history" class="page">
+      <h1>Histórico</h1>
+      <p>Em desenvolvimento...</p>
+    </section>
+  </main>
+
+  <div id="task-modal" class="hidden">
+    <div class="task-form">
+      <h2>Nova tarefa</h2>
+      <input type="text" id="task-title" placeholder="Título" />
+      <textarea id="task-desc" placeholder="Descrição"></textarea>
+      <input type="datetime-local" id="task-datetime" />
+      <input type="text" id="task-aspect" placeholder="Aspecto" />
+      <button id="save-task">Salvar</button>
+      <button id="cancel-task">Cancelar</button>
+    </div>
+  </div>
+
+  <div id="stats-modal" class="hidden">
+    <h2 id="stats-question"></h2>
+    <div class="slider-container">
+      <input type="range" min="1" max="10" value="5" id="stats-slider" />
+      <span id="stats-slider-value">5</span>
+    </div>
+    <button id="stats-next">Próximo</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
