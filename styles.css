@@ -11,17 +11,6 @@
   font-style: normal;
 }
 
-.light {
-  --bg-color: #fff;
-  --text-color: #222;
-  --button-bg: #C8A951;
-  --button-hover-bg: #b09145;
-  --header-bg: linear-gradient(to bottom, #000, #b09145);
-  --header-text: #fff;
-  --dropdown-bg: #000;
-  --dropdown-hover-bg: #333;
-}
-
 .dark {
   --bg-color: #222;
   --text-color: #eee;
@@ -137,20 +126,6 @@ li:hover { transform: scale(1.02); }
   position: relative;
 }
 
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.theme-toggle {
-  padding: 5px 10px;
-}
-
 .header-logo {
   height: 40px;
 }
@@ -173,29 +148,6 @@ li:hover { transform: scale(1.02); }
   opacity: 1;
 }
 
-.menu-button {
-  cursor: pointer;
-  font-size: 24px;
-  position: absolute;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.time-display {
-  font-size: 16px;
-}
-
-.dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  background: var(--dropdown-bg);
-  display: none;
-  flex-direction: column;
-}
-
 .aspect-image {
   width: 300px;
   max-width: 80%;
@@ -207,6 +159,24 @@ li:hover { transform: scale(1.02); }
   margin-top: 20px;
   font-size: 20px;
   text-align: center;
+}
+
+.menu-carousel {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.menu-carousel img {
+  width: 150px;
+  height: 150px;
+  transition: transform 0.3s ease;
+}
+
+.menu-carousel span {
+  margin-top: 10px;
 }
 
 .menu-grid {
@@ -239,27 +209,6 @@ li:hover { transform: scale(1.02); }
 
 .menu-item span {
   margin-top: 10px;
-}
-
-.dropdown.show {
-  display: flex;
-  animation: slideDown 0.3s ease;
-}
-
-.dropdown a {
-  padding: 10px;
-  text-align: center;
-  color: var(--header-text);
-  text-decoration: none;
-}
-
-.dropdown a:hover {
-  background: var(--dropdown-hover-bg);
-}
-
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 .page {
@@ -310,10 +259,6 @@ li:hover { transform: scale(1.02); }
 
 #laws-hub {
   margin-bottom: 20px;
-}
-
-.date-display {
-  font-size: 16px;
 }
 
 @keyframes fade {
@@ -391,39 +336,28 @@ li:hover { transform: scale(1.02); }
   h2 { font-size: 48px; }
   p, span, label, input, button, li { font-size: 36px; }
   button { font-size: 32px; width: 100%; height: 96px; padding: 20px 40px; }
+  #main-header { height: 60px; }
+  .header-logo { height: 60px; }
+  .header-container { padding: 15px; }
+  #main-content h1 { font-size: 72px; }
+  #main-content h2 { font-size: 36px; }
+  #main-content p,
+  #main-content span,
+  #main-content label,
+  #main-content input,
+  #main-content button,
+  #main-content li { font-size: 27px; }
+  #main-content button { font-size: 24px; height: 72px; padding: 15px 30px; }
   #slider, #stats-slider { width: 100%; }
-  .progress-container { height: 16px; }
-  #progress-bar { border-radius: 8px; }
-  .header-logo { height: 80px; }
-  .menu-button { font-size: 40px; }
-  .time-display, .date-display { font-size: 32px; }
-  .header-container { padding: 20px; }
-  #menu {
-    height: calc(100vh - 80px);
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 80px 20px 0;
-  }
-  #menu .menu-grid {
-    width: 100%;
-    height: 100%;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    padding: 0 20px;
-    box-sizing: border-box;
-    justify-items: center;
-    align-content: center;
-  }
-  #menu .menu-item img {
-    width: 80%;
-    height: auto;
-    animation: float 3s ease-in-out infinite alternate;
-  }
-  .task-item h3 { font-size: 40px; }
-  .task-item span { font-size: 28px; }
-  .task-form { padding: 40px; max-width: 800px; }
+  .progress-container { height: 12px; }
+  #progress-bar { border-radius: 6px; }
+  .menu-grid { display: none; }
+  .menu-carousel { display: flex; }
+  #menu { display: none; }
+  .page { padding: 60px 15px 15px; }
+  .task-item h3 { font-size: 30px; }
+  .task-item span { font-size: 21px; }
+  .task-form { padding: 30px; max-width: 600px; }
 }
 
 @media (min-width: 601px) {
