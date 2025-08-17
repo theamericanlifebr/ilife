@@ -1,8 +1,8 @@
 let aspectsData = {};
 let aspectKeys = [];
-let tasksData = {};
-let lawsData = {};
-let mindsetData = {};
+let tasksData = [];
+let lawsData = [];
+let mindsetData = [];
 let currentIndex = 0;
 let currentStep = 0; // 0 importance, 1 level
 let responses = JSON.parse(localStorage.getItem('responses') || '{}');
@@ -34,6 +34,7 @@ const statsSlider = document.getElementById('stats-slider');
 const statsSliderValue = document.getElementById('stats-slider-value');
 
 const addTaskBtn = document.getElementById('add-task-btn');
+const suggestTaskBtn = document.getElementById('suggest-task-btn');
 const taskModal = document.getElementById('task-modal');
 const taskTitleInput = document.getElementById('task-title');
 const taskDescInput = document.getElementById('task-desc');
@@ -43,7 +44,11 @@ const saveTaskBtn = document.getElementById('save-task');
 const cancelTaskBtn = document.getElementById('cancel-task');
 const completeTaskBtn = document.getElementById('complete-task');
 const addLawBtn = document.getElementById('add-law-btn');
+const suggestLawBtn = document.getElementById('suggest-law-btn');
 const lawAspectInput = document.getElementById('law-aspect');
+const addMindsetBtn = document.getElementById('add-mindset-btn');
+const suggestMindsetBtn = document.getElementById('suggest-mindset-btn');
+const mindsetAspectInput = document.getElementById('mindset-aspect');
 const headerLogo = document.getElementById('header-logo');
 const menuCarousel = document.getElementById('menu-carousel');
 
@@ -309,9 +314,10 @@ function buildLaws() {
   });
 }
 
-function addLaw() {
-  const aspect = lawAspectInput.value;
-  const text = prompt('Digite a nova lei:');
+function addLaw(prefill = null) {
+  const aspect = prefill?.aspect || lawAspectInput.value;
+  if (prefill) lawAspectInput.value = aspect;
+  const text = prompt('Digite a nova lei:', prefill ? `${prefill.title} - ${prefill.description}` : '');
   if (!text) return;
   const custom = JSON.parse(localStorage.getItem('customLaws') || '{}');
   if (!custom[aspect]) custom[aspect] = [];
@@ -320,7 +326,14 @@ function addLaw() {
   buildLaws();
 }
 
-addLawBtn.addEventListener('click', addLaw);
+addLawBtn.addEventListener('click', () => addLaw());
+suggestLawBtn.addEventListener('click', () => {
+  const aspect = lawAspectInput.value;
+  const ideas = lawsData.filter(l => l.aspect === aspect);
+  if (!ideas.length) return alert('Sem ideias para este aspecto');
+  const idea = ideas[Math.floor(Math.random() * ideas.length)];
+  addLaw(idea);
+});
 
 function buildStats() {
   const container = document.getElementById('stats-content');
@@ -338,9 +351,14 @@ function buildStats() {
 function buildMindset() {
   const container = document.getElementById('mindset-content');
   container.innerHTML = '';
+  mindsetAspectInput.innerHTML = '';
   const custom = JSON.parse(localStorage.getItem('customMindsets') || '{}');
   const keys = aspectKeys.filter(k => responses[k]?.importance > 7);
   keys.forEach(k => {
+    const opt = document.createElement('option');
+    opt.value = k;
+    opt.textContent = k;
+    mindsetAspectInput.appendChild(opt);
     const h3 = document.createElement('h3');
     h3.textContent = k;
     container.appendChild(h3);
@@ -353,6 +371,27 @@ function buildMindset() {
     container.appendChild(ul);
   });
 }
+
+function addMindset(prefill = null) {
+  const aspect = prefill?.aspect || mindsetAspectInput.value;
+  if (prefill) mindsetAspectInput.value = aspect;
+  const text = prompt('Digite o mindset:', prefill ? `${prefill.title} - ${prefill.description}` : '');
+  if (!text) return;
+  const custom = JSON.parse(localStorage.getItem('customMindsets') || '{}');
+  if (!custom[aspect]) custom[aspect] = [];
+  custom[aspect].push(text);
+  localStorage.setItem('customMindsets', JSON.stringify(custom));
+  buildMindset();
+}
+
+addMindsetBtn.addEventListener('click', () => addMindset());
+suggestMindsetBtn.addEventListener('click', () => {
+  const aspect = mindsetAspectInput.value;
+  const ideas = mindsetData.filter(m => m.aspect === aspect);
+  if (!ideas.length) return alert('Sem ideias para este aspecto');
+  const idea = ideas[Math.floor(Math.random() * ideas.length)];
+  addMindset(idea);
+});
 
 function scheduleNotifications() {
   if (!('Notification' in window)) return;
@@ -473,11 +512,12 @@ function checkStatsPrompt() {
 }
 
 addTaskBtn.addEventListener('click', () => openTaskModal());
+suggestTaskBtn.addEventListener('click', suggestTask);
 saveTaskBtn.addEventListener('click', saveTask);
 cancelTaskBtn.addEventListener('click', closeTaskModal);
 completeTaskBtn.addEventListener('click', completeTask);
 
-function openTaskModal(index = null) {
+function openTaskModal(index = null, prefill = null) {
   editingTaskIndex = index;
   taskAspectInput.innerHTML = '';
   aspectKeys.forEach(k => {
@@ -502,15 +542,28 @@ function openTaskModal(index = null) {
       completeTaskBtn.classList.add('hidden');
     }
   } else {
-    taskTitleInput.value = '';
-    taskDescInput.value = '';
-    taskDatetimeInput.value = now;
-    taskAspectInput.value = aspectKeys[0] || '';
     document.querySelector('#task-modal h2').textContent = 'Nova tarefa';
     completeTaskBtn.classList.add('hidden');
+    if (prefill) {
+      taskTitleInput.value = prefill.title;
+      taskDescInput.value = prefill.description;
+      taskDatetimeInput.value = now;
+      taskAspectInput.value = prefill.aspect;
+    } else {
+      taskTitleInput.value = '';
+      taskDescInput.value = '';
+      taskDatetimeInput.value = now;
+      taskAspectInput.value = aspectKeys[0] || '';
+    }
   }
   taskModal.classList.add('show');
   taskModal.classList.remove('hidden');
+}
+
+function suggestTask() {
+  if (!Array.isArray(tasksData) || !tasksData.length) return;
+  const idea = tasksData[Math.floor(Math.random() * tasksData.length)];
+  openTaskModal(null, idea);
 }
 
 function closeTaskModal() {
