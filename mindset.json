@@ -1,98 +1,26 @@
-{
-  "Water": [
-    "Água limpa a mente.",
-    "Hidratar é investir em energia.",
-    "Garrafa cheia, mente alerta.",
-    "Cada gole reforça sua vitalidade.",
-    "Hábito de beber água é liderança pessoal.",
-    "Você governa seu corpo com água."
-  ],
-  "Nutrition": [
-    "Comer bem é votar na própria saúde.",
-    "Prato colorido, corpo forte.",
-    "Alimentação consciente gera energia estável.",
-    "Você escolhe o combustível da sua máquina.",
-    "Nutrir-se é respeito consigo.",
-    "Cada refeição é uma decisão política."
-  ],
-  "Sleep": [
-    "Sono profundo renova o mandato da mente.",
-    "Dormir cedo é decreto de produtividade.",
-    "Repouso é estratégia, não fraqueza.",
-    "No silêncio da noite se forja a força.",
-    "O líder que dorme bem decide melhor.",
-    "Seus sonhos recarregam sua energia."
-  ],
-  "Hygiene": [
-    "Corpo limpo reflete mente ordenada.",
-    "Higiene é voto diário pela saúde.",
-    "Cuide da aparência, fortaleça a autoestima.",
-    "Limpeza previne batalhas invisíveis.",
-    "Rotina de cuidado é ato de disciplina.",
-    "Cheiro de limpeza inspira respeito."
-  ],
-  "Emocional": [
-    "Controle emocional mantém o poder.",
-    "Respirar é tomar o controle da situação.",
-    "Cada emoção domada é vitória pessoal.",
-    "Resiliência cresce com cada queda.",
-    "Calma é arma secreta do líder.",
-    "Equilíbrio interno projeta força externa."
-  ],
-  "Mindfulness": [
-    "Presença transforma momentos em oportunidades.",
-    "Foco é dizer sim ao essencial.",
-    "Respire e observe antes de agir.",
-    "Consciência plena reduz desperdícios.",
-    "Viva o agora com intenção.",
-    "Mente presente governa com clareza."
-  ],
-  "Learning": [
-    "Aprender expande seu território.",
-    "Conhecimento é voto no futuro.",
-    "Cada livro abre uma nova eleição de ideias.",
-    "Curiosidade é motor da evolução.",
-    "Estudar mantém o poder afiado.",
-    "Ensinar é a melhor forma de aprender."
-  ],
-  "Family": [
-    "Família é base do seu palácio.",
-    "Ouvir parentes fortalece a união.",
-    "Tempo com família recarrega forças.",
-    "Laços familiares sustentam crises.",
-    "Presença é o maior presente.",
-    "Cuidar dos seus é liderar com amor."
-  ],
-  "Relationships": [
-    "Rede forte amplia o alcance das ideias.",
-    "Respeito nas relações constrói alianças.",
-    "Conexões saudáveis alimentam o espírito.",
-    "Comunicação sincera evita conflitos.",
-    "Amigos fiéis são apoio estratégico.",
-    "Bom relacionamento abre portas."
-  ],
-  "Financial": [
-    "Planejamento financeiro garante independência.",
-    "Economia hoje é liberdade amanhã.",
-    "Investir em conhecimento rende juros eternos.",
-    "Controle de gastos é poder real.",
-    "Poupança é guarda de emergência.",
-    "Dinheiro bem usado amplia escolhas."
-  ],
-  "Purpose": [
-    "Propósito claro guia cada decreto.",
-    "Metas dão direção ao governo interior.",
-    "Quem sabe o porquê enfrenta qualquer como.",
-    "Visionário age com consistência.",
-    "Missão pessoal inspira decisões.",
-    "Viver com sentido energiza o caminho."
-  ],
-  "Contribution": [
-    "Servir ao mundo engrandece o líder.",
-    "Cada ato gentil planta um legado.",
-    "Contribuir traz significado ao poder.",
-    "Ajuda mútua fortalece a sociedade.",
-    "Impacto positivo ecoa por gerações.",
-    "Sua marca é o bem que você faz."
-  ]
-}
+[
+  {"title": "Água limpa a mente", "description": "Hidratar é investir em energia.", "aspect": "Water", "conviction": 50},
+  {"title": "Garrafa cheia", "description": "Você governa seu corpo com água.", "aspect": "Water", "conviction": 50},
+  {"title": "Comer bem é saúde", "description": "Prato colorido, corpo forte.", "aspect": "Nutrition", "conviction": 50},
+  {"title": "Alimentação consciente", "description": "Você escolhe o combustível da sua máquina.", "aspect": "Nutrition", "conviction": 50},
+  {"title": "Sono renova a mente", "description": "Dormir cedo é decreto de produtividade.", "aspect": "Sleep", "conviction": 50},
+  {"title": "Repouso é estratégia", "description": "No silêncio da noite se forja a força.", "aspect": "Sleep", "conviction": 50},
+  {"title": "Corpo limpo, mente clara", "description": "Higiene é voto diário pela saúde.", "aspect": "Hygiene", "conviction": 50},
+  {"title": "Cuide da aparência", "description": "Rotina de cuidado é disciplina.", "aspect": "Hygiene", "conviction": 50},
+  {"title": "Controle emocional", "description": "Respirar é tomar o controle.", "aspect": "Emotional", "conviction": 50},
+  {"title": "Resiliência cresce", "description": "Calma é arma secreta.", "aspect": "Emotional", "conviction": 50},
+  {"title": "Presença transforma", "description": "Respire e observe antes de agir.", "aspect": "Mindfulness", "conviction": 50},
+  {"title": "Foco no essencial", "description": "Viva o agora com intenção.", "aspect": "Mindfulness", "conviction": 50},
+  {"title": "Aprender expande", "description": "Conhecimento é voto no futuro.", "aspect": "Learning", "conviction": 50},
+  {"title": "Curiosidade move", "description": "Estudar mantém o poder afiado.", "aspect": "Learning", "conviction": 50},
+  {"title": "Família é base", "description": "Ouvir parentes fortalece a união.", "aspect": "Family", "conviction": 50},
+  {"title": "Tempo com família", "description": "Laços familiares sustentam crises.", "aspect": "Family", "conviction": 50},
+  {"title": "Rede forte", "description": "Respeito nas relações constrói alianças.", "aspect": "Relationships", "conviction": 50},
+  {"title": "Comunicação sincera", "description": "Amigos fiéis são apoio estratégico.", "aspect": "Relationships", "conviction": 50},
+  {"title": "Planejamento financeiro", "description": "Economia hoje é liberdade amanhã.", "aspect": "Financial", "conviction": 50},
+  {"title": "Controle de gastos", "description": "Dinheiro bem usado amplia escolhas.", "aspect": "Financial", "conviction": 50},
+  {"title": "Propósito claro", "description": "Metas dão direção ao governo interior.", "aspect": "Purpose", "conviction": 50},
+  {"title": "Missão pessoal", "description": "Viver com sentido energiza o caminho.", "aspect": "Purpose", "conviction": 50},
+  {"title": "Servir engrandece", "description": "Cada ato gentil planta um legado.", "aspect": "Contribution", "conviction": 50},
+  {"title": "Contribuir dá sentido", "description": "Sua marca é o bem que você faz.", "aspect": "Contribution", "conviction": 50}
+]

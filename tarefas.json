@@ -1,50 +1,110 @@
-{
-  "Water": {
+[
+  {
     "title": "Beber água",
-    "description": "Beba dois copos de água para energizar seu corpo."
+    "description": "Beba dois copos de água para energizar seu corpo.",
+    "aspect": "Water",
+    "type": "Hábito",
+    "date": "Todos os dias",
+    "time": "",
+    "frequency": 2
   },
-  "Nutrition": {
+  {
     "title": "Refeição leve",
-    "description": "Planeje uma refeição equilibrada com verduras e proteínas."
+    "description": "Planeje uma refeição equilibrada com verduras e proteínas.",
+    "aspect": "Nutrition",
+    "type": "Tarefa",
+    "date": "",
+    "time": "",
+    "frequency": 1
   },
-  "Sleep": {
+  {
     "title": "Sono cedo",
-    "description": "Durma cedo e garanta oito horas de recuperação."
+    "description": "Durma cedo e garanta oito horas de recuperação.",
+    "aspect": "Sleep",
+    "type": "Hábito",
+    "date": "Todos os dias",
+    "time": "22:00",
+    "frequency": 1
   },
-  "Hygiene": {
+  {
     "title": "Higiene dia",
-    "description": "Cuide do corpo com banho e escovação completos hoje."
+    "description": "Cuide do corpo com banho e escovação completos hoje.",
+    "aspect": "Hygiene",
+    "type": "Hábito",
+    "date": "Todos os dias",
+    "time": "",
+    "frequency": 1
   },
-  "Emocional": {
+  {
     "title": "Auto controle",
-    "description": "Respire fundo antes de reagir a cada situação."
+    "description": "Respire fundo antes de reagir a cada situação.",
+    "aspect": "Emotional",
+    "type": "Hábito",
+    "date": "Todos os dias",
+    "time": "",
+    "frequency": 1
   },
-  "Mindfulness": {
+  {
     "title": "Foco total",
-    "description": "Pare por cinco minutos e observe sua respiração."
+    "description": "Pare por cinco minutos e observe sua respiração.",
+    "aspect": "Mindfulness",
+    "type": "Hábito",
+    "date": "Todos os dias",
+    "time": "",
+    "frequency": 1
   },
-  "Learning": {
+  {
     "title": "Estudo curto",
-    "description": "Leia ou aprenda algo novo por quinze minutos."
+    "description": "Leia ou aprenda algo novo por quinze minutos.",
+    "aspect": "Learning",
+    "type": "Hábito",
+    "date": "Todos os dias",
+    "time": "",
+    "frequency": 1
   },
-  "Family": {
+  {
     "title": "Chamar família",
-    "description": "Converse com um familiar e fortaleça seus laços."
+    "description": "Converse com um familiar e fortaleça seus laços.",
+    "aspect": "Family",
+    "type": "Tarefa",
+    "date": "",
+    "time": "",
+    "frequency": 1
   },
-  "Relationships": {
+  {
     "title": "Conectar rede",
-    "description": "Envie mensagem sincera para um amigo distante."
+    "description": "Envie mensagem sincera para um amigo distante.",
+    "aspect": "Relationships",
+    "type": "Tarefa",
+    "date": "",
+    "time": "",
+    "frequency": 1
   },
-  "Financial": {
+  {
     "title": "Revisar conta",
-    "description": "Cheque gastos de hoje e atualize seu orçamento."
+    "description": "Cheque gastos de hoje e atualize seu orçamento.",
+    "aspect": "Financial",
+    "type": "Hábito",
+    "date": "Todos os dias",
+    "time": "",
+    "frequency": 1
   },
-  "Purpose": {
+  {
     "title": "Rever metas",
-    "description": "Leia suas metas e ajuste ações para alinhá-las."
+    "description": "Leia suas metas e ajuste ações para alinhá-las.",
+    "aspect": "Purpose",
+    "type": "Hábito",
+    "date": "Todos os dias",
+    "time": "",
+    "frequency": 1
   },
-  "Contribution": {
+  {
     "title": "Ação social",
-    "description": "Faça um ato de gentileza que ajude outra pessoa."
+    "description": "Faça um ato de gentileza que ajude outra pessoa.",
+    "aspect": "Contribution",
+    "type": "Tarefa",
+    "date": "",
+    "time": "",
+    "frequency": 1
   }
-}
+]
