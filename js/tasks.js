@@ -2,7 +2,7 @@ let aspectKeys = [];
 let tasksData = [];
 let editingTaskIndex = null;
 let aspectsMap = {};
-let touchStartY = 0;
+let touchStartX = 0;
 
 const addTaskBtn = document.getElementById('add-task-btn');
 const suggestTaskBtn = document.getElementById('suggest-task-btn');
@@ -29,16 +29,38 @@ export function initTasks(keys, data, aspects) {
   cancelTaskBtn.addEventListener('click', closeTaskModal);
   completeTaskBtn.addEventListener('click', completeTask);
   tasksSection.addEventListener('touchstart', e => {
-    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
   });
   tasksSection.addEventListener('touchend', e => {
-    const dy = e.changedTouches[0].clientY - touchStartY;
-    if (!tasksSection.classList.contains('show-schedule') && dy < -50) {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (!tasksSection.classList.contains('show-schedule') && dx < -50) {
       tasksSection.classList.add('show-schedule');
-    } else if (tasksSection.classList.contains('show-schedule') && dy > 50) {
+    } else if (tasksSection.classList.contains('show-schedule') && dx > 50) {
       tasksSection.classList.remove('show-schedule');
     }
   });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowUp') {
+      tasksSection.classList.add('show-schedule');
+    } else if (e.key === 'ArrowDown') {
+      tasksSection.classList.remove('show-schedule');
+    }
+  });
+  const centralIcon = tasksSection.querySelector('.icone-central');
+  if (centralIcon) {
+    let pressTimer;
+    const startPress = () => {
+      pressTimer = setTimeout(() => {
+        tasksSection.classList.toggle('show-schedule');
+      }, 1000);
+    };
+    const cancelPress = () => clearTimeout(pressTimer);
+    centralIcon.addEventListener('mousedown', startPress);
+    centralIcon.addEventListener('touchstart', startPress);
+    centralIcon.addEventListener('mouseup', cancelPress);
+    centralIcon.addEventListener('mouseleave', cancelPress);
+    centralIcon.addEventListener('touchend', cancelPress);
+  }
   buildTasks();
   buildSchedule();
   setInterval(() => {
