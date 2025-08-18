@@ -287,12 +287,12 @@ document.querySelectorAll('.menu-item').forEach(item => {
 
 function initCarousel() {
   const items = [
-    { page: 'tasks', img: 'acoes.png', label: 'Tarefas' },
-    { page: 'laws', img: 'leis.png', label: 'Leis' },
-    { page: 'stats', img: 'estatisticas.png', label: 'Estatísticas' },
-    { page: 'mindset', img: 'mindset.png', label: 'Mindset' },
-    { page: 'options', img: 'constituicao.png', label: 'Opções' },
-    { page: 'history', img: 'historico.png', label: 'Histórico' }
+    { page: 'tasks', img: 'acoes.png' },
+    { page: 'laws', img: 'leis.png' },
+    { page: 'stats', img: 'estatisticas.png' },
+    { page: 'mindset', img: 'mindset.png' },
+    { page: 'options', img: 'constituicao.png' },
+    { page: 'history', img: 'historico.png' }
   ];
   let idx = 0;
   const img = document.createElement('img');
@@ -301,7 +301,6 @@ function initCarousel() {
   function render() {
     const item = items[idx];
     img.src = item.img;
-    img.alt = item.label;
     showPage(item.page);
   }
 
