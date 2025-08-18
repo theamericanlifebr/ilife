@@ -2,7 +2,6 @@ let aspectKeys = [];
 let tasksData = [];
 let editingTaskIndex = null;
 let aspectsMap = {};
-let touchStartX = 0;
 let calendarStart = getCurrentPeriodStart(new Date());
 let titleTouchX = 0;
 
@@ -30,17 +29,6 @@ export function initTasks(keys, data, aspects) {
   saveTaskBtn.addEventListener('click', saveTask);
   cancelTaskBtn.addEventListener('click', closeTaskModal);
   completeTaskBtn.addEventListener('click', completeTask);
-  tasksSection.addEventListener('touchstart', e => {
-    touchStartX = e.touches[0].clientX;
-  });
-  tasksSection.addEventListener('touchend', e => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (!tasksSection.classList.contains('show-calendar') && dx < -50) {
-      tasksSection.classList.add('show-calendar');
-    } else if (tasksSection.classList.contains('show-calendar') && dx > 50) {
-      tasksSection.classList.remove('show-calendar');
-    }
-  });
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowUp') {
       tasksSection.classList.add('show-calendar');
@@ -56,9 +44,10 @@ export function initTasks(keys, data, aspects) {
   if (centralIcon) {
     let pressTimer;
     const startPress = () => {
+      const delay = tasksSection.classList.contains('show-calendar') ? 600 : 400;
       pressTimer = setTimeout(() => {
         tasksSection.classList.toggle('show-calendar');
-      }, 1000);
+      }, delay);
     };
     const cancelPress = () => clearTimeout(pressTimer);
     centralIcon.addEventListener('mousedown', startPress);

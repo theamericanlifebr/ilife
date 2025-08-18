@@ -9,7 +9,6 @@ let tasksData = [];
 let lawsData = [];
 let mindsetData = [];
 let currentIndex = 0;
-let currentStep = 0; // 0 importance, 1 level
 let responses = JSON.parse(localStorage.getItem('responses') || '{}');
 let previousLogin = 0;
 
@@ -118,24 +117,14 @@ slider.addEventListener('input', updateFeedback);
 
 document.getElementById('next-btn').addEventListener('click', () => {
   const key = aspectKeys[currentIndex];
-  if (!responses[key]) responses[key] = { importance: 0, level: 50 };
-  if (currentStep === 0) {
-    responses[key].importance = Number(slider.value);
-    currentStep = 1;
-    slider.value = responses[key].level || 50;
-    updateFeedback();
+  responses[key] = { importance: Number(slider.value), level: 50 };
+  currentIndex++;
+  if (currentIndex < aspectKeys.length) {
     showQuestion();
   } else {
-    responses[key].level = Number(slider.value);
-    currentStep = 0;
-    currentIndex++;
-    if (currentIndex < aspectKeys.length) {
-      showQuestion();
-    } else {
-      document.getElementById('question-screen').classList.add('hidden');
-      document.getElementById('oath-text').textContent = buildOath();
-      document.getElementById('name-screen').classList.remove('hidden');
-    }
+    document.getElementById('question-screen').classList.add('hidden');
+    document.getElementById('oath-text').textContent = buildOath();
+    document.getElementById('name-screen').classList.remove('hidden');
   }
 });
 
@@ -179,6 +168,10 @@ function initApp(firstTime) {
   } else {
     responses = JSON.parse(localStorage.getItem('responses') || '{}');
   }
+  const savedGradient = JSON.parse(localStorage.getItem('bgGradient') || 'null');
+  if (savedGradient) {
+    document.body.style.background = `linear-gradient(${savedGradient[0]}, ${savedGradient[1]})`;
+  }
   buildOptions();
   initTasks(aspectKeys, tasksData, aspectsData);
   initLaws(aspectKeys, lawsData, statsColors);
@@ -197,6 +190,32 @@ function initApp(firstTime) {
 function buildOptions() {
   const container = document.getElementById('options-content');
   container.innerHTML = '';
+  const themeTitle = document.createElement('h2');
+  themeTitle.textContent = 'Cores de fundo';
+  container.appendChild(themeTitle);
+  const color1 = document.createElement('input');
+  color1.type = 'color';
+  const color2 = document.createElement('input');
+  color2.type = 'color';
+  const applyBtn = document.createElement('button');
+  applyBtn.textContent = 'Aplicar';
+  const saved = JSON.parse(localStorage.getItem('bgGradient') || 'null');
+  if (saved) {
+    color1.value = saved[0];
+    color2.value = saved[1];
+  } else {
+    color1.value = '#000000';
+    color2.value = '#222222';
+  }
+  applyBtn.addEventListener('click', () => {
+    const c1 = color1.value;
+    const c2 = color2.value;
+    document.body.style.background = `linear-gradient(${c1}, ${c2})`;
+    localStorage.setItem('bgGradient', JSON.stringify([c1, c2]));
+  });
+  container.appendChild(color1);
+  container.appendChild(color2);
+  container.appendChild(applyBtn);
   const categories = [
     { title: 'Princípios fundamentais', filter: v => v === 10 },
     { title: 'Pilares de uma vida equilibrada', filter: v => v >= 8 && v <= 9 },
@@ -252,15 +271,12 @@ function initCarousel() {
   ];
   let idx = 0;
   const img = document.createElement('img');
-  const span = document.createElement('span');
   menuCarousel.appendChild(img);
-  menuCarousel.appendChild(span);
 
   function render() {
     const item = items[idx];
     img.src = item.img;
     img.alt = item.label;
-    span.textContent = item.label;
     showPage(item.page);
   }
 
