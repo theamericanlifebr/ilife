@@ -1,6 +1,9 @@
 let aspectKeys = [];
 let tasksData = [];
 let editingTaskIndex = null;
+let aspectsMap = {};
+let scheduleIndex = 0;
+let scheduleSwipeInitialized = false;
 
 const addTaskBtn = document.getElementById('add-task-btn');
 const suggestTaskBtn = document.getElementById('suggest-task-btn');
@@ -13,17 +16,24 @@ const taskTypeInput = document.getElementById('task-type');
 const saveTaskBtn = document.getElementById('save-task');
 const cancelTaskBtn = document.getElementById('cancel-task');
 const completeTaskBtn = document.getElementById('complete-task');
+const scheduleTitle = document.getElementById('schedule-title');
+const scheduleCarousel = document.getElementById('schedule-carousel');
 
-export function initTasks(keys, data) {
+export function initTasks(keys, data, aspects) {
   aspectKeys = keys;
   tasksData = data;
+  aspectsMap = aspects;
   addTaskBtn.addEventListener('click', () => openTaskModal());
   suggestTaskBtn.addEventListener('click', suggestTask);
   saveTaskBtn.addEventListener('click', saveTask);
   cancelTaskBtn.addEventListener('click', closeTaskModal);
   completeTaskBtn.addEventListener('click', completeTask);
   buildTasks();
-  setInterval(buildTasks, 60000);
+  buildSchedule();
+  setInterval(() => {
+    buildTasks();
+    buildSchedule();
+  }, 60000);
 }
 
 function buildTasks() {
@@ -78,6 +88,92 @@ function buildTasks() {
   if (!tasks.length) {
     pending.textContent = 'Sem tarefas ainda';
   }
+}
+
+function buildSchedule() {
+  if (!scheduleCarousel || !scheduleTitle) return;
+  const now = new Date();
+  scheduleTitle.textContent = now.toLocaleString('pt-BR');
+  const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+  const todayTasks = tasks.filter(t => {
+    const d = new Date(t.startTime);
+    return d.toDateString() === now.toDateString();
+  });
+  const periods = [
+    { name: 'morning', start: 6 },
+    { name: 'afternoon', start: 12 },
+    { name: 'night', start: 18 },
+    { name: 'dawn', start: 0 }
+  ];
+  scheduleCarousel.innerHTML = '';
+  periods.forEach(p => {
+    const period = document.createElement('div');
+    period.className = `schedule-period ${p.name}`;
+    const start = p.start;
+    for (let i = 0; i < 24; i++) {
+      const block = document.createElement('div');
+      block.className = 'time-block';
+      const minutes = (start * 60) + i * 15;
+      const h = Math.floor(minutes / 60) % 24;
+      const m = minutes % 60;
+      const label = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+      const title = document.createElement('div');
+      title.className = 'time-title';
+      title.textContent = label;
+      block.appendChild(title);
+      const icons = document.createElement('div');
+      icons.className = 'task-icons';
+      const matching = todayTasks.filter((t, idx) => {
+        const d = new Date(t.startTime);
+        return d.getHours() === h && d.getMinutes() === m;
+      });
+      const count = document.createElement('span');
+      count.className = 'task-count';
+      count.textContent = matching.length;
+      block.appendChild(count);
+      matching.slice(0,5).forEach(t => {
+        const img = document.createElement('img');
+        img.src = aspectsMap[t.aspect]?.image || '';
+        img.alt = t.aspect;
+        img.width = 30;
+        img.height = 30;
+        const idx = tasks.indexOf(t);
+        img.addEventListener('click', () => openTaskModal(idx));
+        icons.appendChild(img);
+      });
+      block.appendChild(icons);
+      period.appendChild(block);
+    }
+    scheduleCarousel.appendChild(period);
+  });
+  scheduleIndex = getCurrentPeriodIndex(now.getHours());
+  scheduleCarousel.style.transform = `translateX(-${scheduleIndex * 100}%)`;
+  initScheduleSwipe();
+}
+
+function getCurrentPeriodIndex(hour) {
+  if (hour >= 6 && hour < 12) return 0;
+  if (hour >= 12 && hour < 18) return 1;
+  if (hour >= 18 && hour < 24) return 2;
+  return 3;
+}
+
+function initScheduleSwipe() {
+  if (scheduleSwipeInitialized) return;
+  scheduleSwipeInitialized = true;
+  let startX = 0;
+  scheduleCarousel.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+  });
+  scheduleCarousel.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (dx > 50) {
+      scheduleIndex = (scheduleIndex - 1 + 4) % 4;
+    } else if (dx < -50) {
+      scheduleIndex = (scheduleIndex + 1) % 4;
+    }
+    scheduleCarousel.style.transform = `translateX(-${scheduleIndex * 100}%)`;
+  });
 }
 
 function openTaskModal(index = null, prefill = null) {
@@ -141,6 +237,7 @@ function suggestTask() {
   });
   localStorage.setItem('tasks', JSON.stringify(tasks));
   buildTasks();
+  buildSchedule();
 }
 
 function closeTaskModal() {
@@ -178,6 +275,7 @@ function saveTask() {
   localStorage.setItem('tasks', JSON.stringify(tasks));
   closeTaskModal();
   buildTasks();
+  buildSchedule();
 }
 
 function completeTask() {
@@ -187,5 +285,6 @@ function completeTask() {
   localStorage.setItem('tasks', JSON.stringify(tasks));
   closeTaskModal();
   buildTasks();
+  buildSchedule();
 }
 
