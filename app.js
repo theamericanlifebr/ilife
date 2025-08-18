@@ -269,6 +269,10 @@ function buildTasks(previousLogin) {
     const div = document.createElement('div');
     div.className = 'task-item';
     div.dataset.index = index;
+    div.draggable = true;
+    div.addEventListener('dragstart', handleDragStart);
+    div.addEventListener('dragover', handleDragOver);
+    div.addEventListener('drop', handleDrop);
     const h3 = document.createElement('h3');
     h3.textContent = t.title;
     const p = document.createElement('p');
