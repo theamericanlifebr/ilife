@@ -26,6 +26,10 @@ const statsColors = {
   Purpose: ['#7e57c2', '#9575cd'],
   Contribution: ['#ffffff', '#f5f5f5']
 };
+const savedAspectColors = JSON.parse(localStorage.getItem('aspectColors') || '{}');
+Object.keys(savedAspectColors).forEach(k => {
+  statsColors[k] = [savedAspectColors[k], savedAspectColors[k]];
+});
 
 // Prevent copying, context menu, and zoom interactions
 document.addEventListener('contextmenu', e => e.preventDefault());
@@ -216,6 +220,27 @@ function buildOptions() {
   container.appendChild(color1);
   container.appendChild(color2);
   container.appendChild(applyBtn);
+  const paletteTitle = document.createElement('h2');
+  paletteTitle.textContent = 'Cores dos aspectos';
+  container.appendChild(paletteTitle);
+  const aspectColors = JSON.parse(localStorage.getItem('aspectColors') || '{}');
+  aspectKeys.forEach(k => {
+    const label = document.createElement('label');
+    label.textContent = k;
+    const input = document.createElement('input');
+    input.type = 'color';
+    input.value = aspectColors[k] || statsColors[k][0];
+    input.addEventListener('input', () => {
+      aspectColors[k] = input.value;
+      localStorage.setItem('aspectColors', JSON.stringify(aspectColors));
+    });
+    label.appendChild(input);
+    container.appendChild(label);
+  });
+  const applyColors = document.createElement('button');
+  applyColors.textContent = 'Aplicar cores';
+  applyColors.addEventListener('click', () => location.reload());
+  container.appendChild(applyColors);
   const categories = [
     { title: 'Princípios fundamentais', filter: v => v === 10 },
     { title: 'Pilares de uma vida equilibrada', filter: v => v >= 8 && v <= 9 },

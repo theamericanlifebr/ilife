@@ -30,32 +30,36 @@ export function initTasks(keys, data, aspects) {
   cancelTaskBtn.addEventListener('click', closeTaskModal);
   completeTaskBtn.addEventListener('click', completeTask);
   document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowUp') {
-      tasksSection.classList.add('show-calendar');
-    } else if (e.key === 'ArrowDown') {
-      tasksSection.classList.remove('show-calendar');
-    } else if (e.key === 'ArrowLeft') {
+    if (e.key === 'ArrowLeft') {
       changePeriod(-1);
     } else if (e.key === 'ArrowRight') {
       changePeriod(1);
     }
   });
-  const centralIcon = tasksSection.querySelector('.icone-central');
-  if (centralIcon) {
-    let pressTimer;
-    const startPress = () => {
-      const delay = tasksSection.classList.contains('show-calendar') ? 600 : 400;
-      pressTimer = setTimeout(() => {
-        tasksSection.classList.toggle('show-calendar');
-      }, delay);
-    };
-    const cancelPress = () => clearTimeout(pressTimer);
-    centralIcon.addEventListener('mousedown', startPress);
-    centralIcon.addEventListener('touchstart', startPress);
-    centralIcon.addEventListener('mouseup', cancelPress);
-    centralIcon.addEventListener('mouseleave', cancelPress);
-    centralIcon.addEventListener('touchend', cancelPress);
-  }
+  let touchStartX = 0;
+  tasksSection.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+  });
+  tasksSection.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (dx < -50) {
+      tasksSection.classList.add('show-calendar');
+    } else if (dx > 50) {
+      tasksSection.classList.remove('show-calendar');
+    }
+  });
+  let mouseStartX = 0;
+  tasksSection.addEventListener('mousedown', e => {
+    mouseStartX = e.clientX;
+  });
+  tasksSection.addEventListener('mouseup', e => {
+    const dx = e.clientX - mouseStartX;
+    if (dx < -50) {
+      tasksSection.classList.add('show-calendar');
+    } else if (dx > 50) {
+      tasksSection.classList.remove('show-calendar');
+    }
+  });
   if (calendarTitle) {
     calendarTitle.addEventListener('touchstart', e => {
       titleTouchX = e.touches[0].clientX;
