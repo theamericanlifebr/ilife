@@ -15,8 +15,8 @@ const taskTypeInput = document.getElementById('task-type');
 const saveTaskBtn = document.getElementById('save-task');
 const cancelTaskBtn = document.getElementById('cancel-task');
 const completeTaskBtn = document.getElementById('complete-task');
-const scheduleTitle = document.getElementById('schedule-title');
-const scheduleList = document.getElementById('schedule-list');
+const calendarTitle = document.getElementById('calendar-title');
+const calendarList = document.getElementById('calendar-list');
 const tasksSection = document.getElementById('tasks');
 
 export function initTasks(keys, data, aspects) {
@@ -33,17 +33,17 @@ export function initTasks(keys, data, aspects) {
   });
   tasksSection.addEventListener('touchend', e => {
     const dx = e.changedTouches[0].clientX - touchStartX;
-    if (!tasksSection.classList.contains('show-schedule') && dx < -50) {
-      tasksSection.classList.add('show-schedule');
-    } else if (tasksSection.classList.contains('show-schedule') && dx > 50) {
-      tasksSection.classList.remove('show-schedule');
+    if (!tasksSection.classList.contains('show-calendar') && dx < -50) {
+      tasksSection.classList.add('show-calendar');
+    } else if (tasksSection.classList.contains('show-calendar') && dx > 50) {
+      tasksSection.classList.remove('show-calendar');
     }
   });
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowUp') {
-      tasksSection.classList.add('show-schedule');
+      tasksSection.classList.add('show-calendar');
     } else if (e.key === 'ArrowDown') {
-      tasksSection.classList.remove('show-schedule');
+      tasksSection.classList.remove('show-calendar');
     }
   });
   const centralIcon = tasksSection.querySelector('.icone-central');
@@ -51,7 +51,7 @@ export function initTasks(keys, data, aspects) {
     let pressTimer;
     const startPress = () => {
       pressTimer = setTimeout(() => {
-        tasksSection.classList.toggle('show-schedule');
+        tasksSection.classList.toggle('show-calendar');
       }, 1000);
     };
     const cancelPress = () => clearTimeout(pressTimer);
@@ -62,10 +62,10 @@ export function initTasks(keys, data, aspects) {
     centralIcon.addEventListener('touchend', cancelPress);
   }
   buildTasks();
-  buildSchedule();
+  buildCalendar();
   setInterval(() => {
     buildTasks();
-    buildSchedule();
+    buildCalendar();
   }, 60000);
 }
 
@@ -123,37 +123,37 @@ function buildTasks() {
   }
 }
 
-function buildSchedule() {
-  if (!scheduleList || !scheduleTitle) return;
+function buildCalendar() {
+  if (!calendarList || !calendarTitle) return;
   const now = new Date();
-  scheduleTitle.textContent = now.toLocaleString('pt-BR');
+  calendarTitle.textContent = now.toLocaleString('pt-BR');
   const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
   const todayTasks = tasks.filter(t => {
     const d = new Date(t.startTime);
     return d.toDateString() === now.toDateString();
   });
-  scheduleList.innerHTML = '';
+  calendarList.innerHTML = '';
   for (let minutes = 0; minutes < 24 * 60; minutes += 15) {
     const h = Math.floor(minutes / 60);
     const m = minutes % 60;
     const label = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
-    const block = document.createElement('div');
-    block.className = `time-block ${getPeriodClass(h)}`;
-    const title = document.createElement('div');
-    title.className = 'time-title';
-    title.textContent = label;
-    block.appendChild(title);
+    const boxtime = document.createElement('div');
+    boxtime.className = 'boxtime';
+    const blockTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m);
+    if (blockTime < now) {
+      boxtime.classList.add('past');
+    }
+    const timeDiv = document.createElement('div');
+    timeDiv.className = 'boxtime-time';
+    timeDiv.textContent = label;
+    boxtime.appendChild(timeDiv);
     const icons = document.createElement('div');
-    icons.className = 'task-icons';
+    icons.className = 'boxtime-icons';
     const matching = todayTasks.filter(t => {
       const d = new Date(t.startTime);
-      return d.getHours() === h && d.getMinutes() === m;
+      return d.getHours() === h && Math.floor(d.getMinutes() / 15) * 15 === m;
     });
-    const count = document.createElement('span');
-    count.className = 'task-count';
-    count.textContent = matching.length;
-    block.appendChild(count);
-    matching.slice(0, 5).forEach(t => {
+    matching.slice(0, 4).forEach(t => {
       const img = document.createElement('img');
       img.src = aspectsMap[t.aspect]?.image || '';
       img.alt = t.aspect;
@@ -163,16 +163,9 @@ function buildSchedule() {
       img.addEventListener('click', () => openTaskModal(idx));
       icons.appendChild(img);
     });
-    block.appendChild(icons);
-    scheduleList.appendChild(block);
+    boxtime.appendChild(icons);
+    calendarList.appendChild(boxtime);
   }
-}
-
-function getPeriodClass(hour) {
-  if (hour >= 6 && hour < 12) return 'morning';
-  if (hour >= 12 && hour < 18) return 'afternoon';
-  if (hour >= 18 && hour < 24) return 'night';
-  return 'dawn';
 }
 
 function openTaskModal(index = null, prefill = null) {
@@ -236,7 +229,7 @@ function suggestTask() {
   });
   localStorage.setItem('tasks', JSON.stringify(tasks));
   buildTasks();
-  buildSchedule();
+  buildCalendar();
 }
 
 function closeTaskModal() {
@@ -274,7 +267,7 @@ function saveTask() {
   localStorage.setItem('tasks', JSON.stringify(tasks));
   closeTaskModal();
   buildTasks();
-  buildSchedule();
+  buildCalendar();
 }
 
 function completeTask() {
@@ -284,6 +277,6 @@ function completeTask() {
   localStorage.setItem('tasks', JSON.stringify(tasks));
   closeTaskModal();
   buildTasks();
-  buildSchedule();
+  buildCalendar();
 }
 
