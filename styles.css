@@ -85,6 +85,34 @@ button {
 }
 button:hover { background: var(--button-hover-bg); }
 
+#add-task-btn {
+  background: linear-gradient(#87ceeb, #00008b);
+}
+#add-task-btn:hover {
+  background: linear-gradient(#87ceeb, #00008b);
+}
+
+#add-law-btn {
+  background: linear-gradient(#87ceeb, #4169e1);
+}
+#add-law-btn:hover {
+  background: linear-gradient(#87ceeb, #4169e1);
+}
+
+#add-mindset-btn {
+  background: linear-gradient(#800000, #ff0000);
+}
+#add-mindset-btn:hover {
+  background: linear-gradient(#800000, #ff0000);
+}
+
+.suggest-btn {
+  background: linear-gradient(#ffa726, #fb8c00);
+}
+.suggest-btn:hover {
+  background: linear-gradient(#ffa726, #fb8c00);
+}
+
 select {
   height: 40px;
   background: rgba(0, 0, 0, 0.8);
@@ -437,22 +465,22 @@ li:hover { transform: scale(1.02); }
 }
 #tasks-content,
 #calendar {
+  position: absolute;
+  top: 0;
   width: 100%;
   transition: transform 0.3s ease;
 }
 #calendar {
-  position: absolute;
-  top: 100%;
-  left: 0;
+  left: 100%;
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 #tasks.show-calendar #tasks-content {
-  transform: translateY(-100%);
+  transform: translateX(-100%);
 }
 #tasks.show-calendar #calendar {
-  transform: translateY(-100%);
+  transform: translateX(-100%);
 }
 #calendar-title {
   height: 60px;
@@ -537,7 +565,7 @@ li:hover { transform: scale(1.02); }
   h2 { font-size: 14px; }
   p, span, label, input, button, li { font-size: 11px; }
   button { font-size: 10px; padding: 7px 14px; }
-  .icone-central { width: 105px; height: 105px; }
+  .icone-central { display: none; }
   #logo-screen #logo,
   .aspect-image { width: 210px; }
   .menu-item img { width: 105px; height: 105px; }
