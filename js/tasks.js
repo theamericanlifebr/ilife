@@ -46,6 +46,10 @@ export function initTasks(keys, data, aspects) {
       tasksSection.classList.add('show-calendar');
     } else if (e.key === 'ArrowDown') {
       tasksSection.classList.remove('show-calendar');
+    } else if (e.key === 'ArrowLeft') {
+      changePeriod(-1);
+    } else if (e.key === 'ArrowRight') {
+      changePeriod(1);
     }
   });
   const centralIcon = tasksSection.querySelector('.icone-central');
@@ -154,7 +158,7 @@ function buildCalendar() {
   const now = new Date();
   const start = calendarStart;
   const periodInfo = getPeriodInfo(start.getHours());
-  calendarTitle.textContent = `${formatDate(start)} + ${periodInfo.label}`;
+  calendarTitle.textContent = `${formatDate(start)} (${periodInfo.label})`;
   const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
   const periodEnd = new Date(start.getTime() + 6 * 60 * 60 * 1000);
   const periodTasks = tasks.filter(t => {
