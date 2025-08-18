@@ -442,6 +442,9 @@ li:hover { transform: scale(1.02); }
   position: absolute;
   top: 100%;
   left: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 #tasks.show-calendar #tasks-content {
   transform: translateY(-100%);
@@ -449,20 +452,32 @@ li:hover { transform: scale(1.02); }
 #tasks.show-calendar #calendar {
   transform: translateY(-100%);
 }
+#calendar-title {
+  height: 60px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+}
 #calendar-list {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
   padding: 15px 15px 10px;
+  flex: 1;
+  overflow-y: auto;
 }
 .boxtime {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
-  max-width: 500px;
-  padding: 5px;
+  max-width: 520px;
+  padding: 5px 15px;
   border-radius: 8px;
 }
 .boxtime-time {
@@ -470,10 +485,10 @@ li:hover { transform: scale(1.02); }
   color: rgba(255, 255, 255, 0.75);
 }
 .boxtime-icons {
-  display: grid;
-  grid-template-columns: repeat(2, 30px);
-  grid-template-rows: repeat(2, 30px);
+  display: flex;
+  align-items: center;
   gap: 5px;
+  margin-left: 20px;
 }
 .boxtime-icons img {
   width: 30px;
