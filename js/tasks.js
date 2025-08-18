@@ -3,6 +3,8 @@ let tasksData = [];
 let editingTaskIndex = null;
 let aspectsMap = {};
 let touchStartX = 0;
+let calendarStart = getCurrentPeriodStart(new Date());
+let titleTouchX = 0;
 
 const addTaskBtn = document.getElementById('add-task-btn');
 const suggestTaskBtn = document.getElementById('suggest-task-btn');
@@ -60,6 +62,30 @@ export function initTasks(keys, data, aspects) {
     centralIcon.addEventListener('mouseup', cancelPress);
     centralIcon.addEventListener('mouseleave', cancelPress);
     centralIcon.addEventListener('touchend', cancelPress);
+  }
+  if (calendarTitle) {
+    calendarTitle.addEventListener('touchstart', e => {
+      titleTouchX = e.touches[0].clientX;
+    });
+    calendarTitle.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - titleTouchX;
+      if (dx < -50) {
+        changePeriod(1);
+      } else if (dx > 50) {
+        changePeriod(-1);
+      }
+    });
+    calendarTitle.addEventListener('mousedown', e => {
+      titleTouchX = e.clientX;
+    });
+    calendarTitle.addEventListener('mouseup', e => {
+      const dx = e.clientX - titleTouchX;
+      if (dx < -50) {
+        changePeriod(1);
+      } else if (dx > 50) {
+        changePeriod(-1);
+      }
+    });
   }
   buildTasks();
   buildCalendar();
@@ -126,20 +152,21 @@ function buildTasks() {
 function buildCalendar() {
   if (!calendarList || !calendarTitle) return;
   const now = new Date();
-  calendarTitle.textContent = now.toLocaleString('pt-BR');
+  const start = calendarStart;
+  const periodInfo = getPeriodInfo(start.getHours());
+  calendarTitle.textContent = `${formatDate(start)} + ${periodInfo.label}`;
   const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
-  const todayTasks = tasks.filter(t => {
+  const periodEnd = new Date(start.getTime() + 6 * 60 * 60 * 1000);
+  const periodTasks = tasks.filter(t => {
     const d = new Date(t.startTime);
-    return d.toDateString() === now.toDateString();
+    return d >= start && d < periodEnd;
   });
   calendarList.innerHTML = '';
-  for (let minutes = 0; minutes < 24 * 60; minutes += 15) {
-    const h = Math.floor(minutes / 60);
-    const m = minutes % 60;
-    const label = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+  for (let minutes = 0; minutes < 6 * 60; minutes += 15) {
+    const blockTime = new Date(start.getTime() + minutes * 60000);
+    const label = `${String(blockTime.getHours()).padStart(2, '0')}:${String(blockTime.getMinutes()).padStart(2, '0')}`;
     const boxtime = document.createElement('div');
-    boxtime.className = 'boxtime';
-    const blockTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m);
+    boxtime.className = `boxtime ${periodInfo.className}`;
     if (blockTime < now) {
       boxtime.classList.add('past');
     }
@@ -149,9 +176,9 @@ function buildCalendar() {
     boxtime.appendChild(timeDiv);
     const icons = document.createElement('div');
     icons.className = 'boxtime-icons';
-    const matching = todayTasks.filter(t => {
+    const matching = periodTasks.filter(t => {
       const d = new Date(t.startTime);
-      return d.getHours() === h && Math.floor(d.getMinutes() / 15) * 15 === m;
+      return d.getHours() === blockTime.getHours() && Math.floor(d.getMinutes() / 15) * 15 === blockTime.getMinutes();
     });
     matching.slice(0, 4).forEach(t => {
       const img = document.createElement('img');
@@ -166,6 +193,31 @@ function buildCalendar() {
     boxtime.appendChild(icons);
     calendarList.appendChild(boxtime);
   }
+}
+
+function changePeriod(delta) {
+  calendarStart = new Date(calendarStart.getTime() + delta * 6 * 60 * 60 * 1000);
+  buildCalendar();
+}
+
+function getCurrentPeriodStart(now) {
+  const hour = now.getHours();
+  const startHour = hour < 6 ? 0 : hour < 12 ? 6 : hour < 18 ? 12 : 18;
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate(), startHour, 0, 0, 0);
+}
+
+function getPeriodInfo(hour) {
+  if (hour < 6) return { label: 'Madrugada', className: 'dawn' };
+  if (hour < 12) return { label: 'Manhã', className: 'morning' };
+  if (hour < 18) return { label: 'Tarde', className: 'afternoon' };
+  return { label: 'Noite', className: 'night' };
+}
+
+function formatDate(date) {
+  const dd = String(date.getDate()).padStart(2, '0');
+  const mm = String(date.getMonth() + 1).padStart(2, '0');
+  const yy = String(date.getFullYear()).slice(-2);
+  return `${dd}|${mm}|${yy}`;
 }
 
 function openTaskModal(index = null, prefill = null) {
