@@ -13,6 +13,7 @@ const taskDescInput = document.getElementById('task-desc');
 const taskDatetimeInput = document.getElementById('task-datetime');
 const taskAspectInput = document.getElementById('task-aspect');
 const taskTypeInput = document.getElementById('task-type');
+const taskDurationInput = document.getElementById('task-duration');
 const saveTaskBtn = document.getElementById('save-task');
 const cancelTaskBtn = document.getElementById('cancel-task');
 const completeTaskBtn = document.getElementById('complete-task');
@@ -156,15 +157,17 @@ function buildCalendar() {
   const periodEnd = new Date(start.getTime() + 6 * 60 * 60 * 1000);
   const periodTasks = tasks.filter(t => {
     const d = new Date(t.startTime);
-    return d >= start && d < periodEnd;
+    const end = new Date(d.getTime() + (t.duration || 15) * 60000);
+    return d < periodEnd && end > start;
   });
   calendarList.innerHTML = '';
   for (let minutes = 0; minutes < 6 * 60; minutes += 15) {
-    const blockTime = new Date(start.getTime() + minutes * 60000);
-    const label = `${String(blockTime.getHours()).padStart(2, '0')}:${String(blockTime.getMinutes()).padStart(2, '0')}`;
+    const blockStart = new Date(start.getTime() + minutes * 60000);
+    const blockEnd = new Date(blockStart.getTime() + 15 * 60000);
+    const label = `${String(blockStart.getHours()).padStart(2, '0')}:${String(blockStart.getMinutes()).padStart(2, '0')}`;
     const boxtime = document.createElement('div');
     boxtime.className = `boxtime ${periodInfo.className}`;
-    if (blockTime < now) {
+    if (blockStart < now) {
       boxtime.classList.add('past');
     }
     const timeDiv = document.createElement('div');
@@ -174,8 +177,9 @@ function buildCalendar() {
     const icons = document.createElement('div');
     icons.className = 'boxtime-icons';
     const matching = periodTasks.filter(t => {
-      const d = new Date(t.startTime);
-      return d.getHours() === blockTime.getHours() && Math.floor(d.getMinutes() / 15) * 15 === blockTime.getMinutes();
+      const taskStart = new Date(t.startTime);
+      const taskEnd = new Date(taskStart.getTime() + (t.duration || 15) * 60000);
+      return taskStart < blockEnd && taskEnd > blockStart;
     });
     matching.slice(0, 4).forEach(t => {
       const img = document.createElement('img');
@@ -237,6 +241,7 @@ function openTaskModal(index = null, prefill = null) {
     taskDatetimeInput.value = t.startTime.slice(0, 16);
     taskAspectInput.value = t.aspect;
     taskTypeInput.value = t.type || 'Hábito';
+    taskDurationInput.value = t.duration || 15;
     document.querySelector('#task-modal h2').textContent = 'Editar tarefa';
     if (!t.completed) {
       completeTaskBtn.classList.remove('hidden');
@@ -252,11 +257,13 @@ function openTaskModal(index = null, prefill = null) {
       taskDatetimeInput.value = now;
       taskAspectInput.value = prefill.aspect;
       taskTypeInput.value = prefill.type || 'Hábito';
+      taskDurationInput.value = prefill.duration || 15;
     } else {
       taskTitleInput.value = '';
       taskDescInput.value = '';
       taskDatetimeInput.value = now;
       taskAspectInput.value = aspectKeys[0] || '';
+      taskDurationInput.value = 15;
     }
   }
   taskModal.classList.add('show');
@@ -274,6 +281,7 @@ function suggestTask() {
     startTime: now,
     aspect: idea.aspect,
     type: idea.type || 'Hábito',
+    duration: idea.duration || 15,
     completed: false
   });
   localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -295,6 +303,7 @@ function saveTask() {
   if (!datetime) return;
   const aspect = taskAspectInput.value;
   const type = taskTypeInput.value;
+  const duration = Number(taskDurationInput.value) || 15;
   if (new Date(datetime) <= new Date()) {
     alert('Selecione um horário futuro');
     return;
@@ -306,6 +315,7 @@ function saveTask() {
     startTime: new Date(datetime).toISOString(),
     aspect,
     type,
+    duration,
     completed: false
   };
   if (editingTaskIndex !== null) {
