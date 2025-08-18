@@ -462,6 +462,8 @@ li:hover { transform: scale(1.02); }
   justify-content: space-between;
   width: 100%;
   max-width: 500px;
+  padding: 5px;
+  border-radius: 8px;
 }
 .boxtime-time {
   font-size: 32px;
@@ -479,6 +481,18 @@ li:hover { transform: scale(1.02); }
 }
 .boxtime.past {
   opacity: 0.4;
+}
+.boxtime.morning {
+  background: linear-gradient(to right, #40E0D0, #ffffff);
+}
+.boxtime.afternoon {
+  background: linear-gradient(to right, #ffa500, #40E0D0);
+}
+.boxtime.night {
+  background: linear-gradient(to right, #00008B, #00004D);
+}
+.boxtime.dawn {
+  background: linear-gradient(to right, #000000, #000030);
 }
 
 .accept-btn {
