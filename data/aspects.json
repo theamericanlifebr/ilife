@@ -1,5 +1,6 @@
 {
   "Water": {
+    "image": "aspect1.png",
     "importanceQuestion": "De 1 a 10, qual a importância da sua hidratação diária para o seu bem-estar?",
     "levelQuestion": "Qual o nível atual da sua hidratação diária hoje?",
     "speech": "Comprometo-me a manter meu corpo hidratado, combustível vital para a liderança da minha vida.",
@@ -10,6 +11,7 @@
     ]
   },
   "Nutrition": {
+    "image": "aspect2.png",
     "importanceQuestion": "De 1 a 10, qual a importância de manter uma alimentação equilibrada para sua vida?",
     "levelQuestion": "Qual o nível atual da sua alimentação equilibrada hoje?",
     "speech": "Prometo alimentar meu corpo com equilíbrio para sustentar força e clareza mental.",
@@ -20,6 +22,7 @@
     ]
   },
   "Sleep": {
+    "image": "aspect3.png",
     "importanceQuestion": "De 1 a 10, quão essencial é ter um sono de qualidade para seu desempenho diário?",
     "levelQuestion": "Qual o nível atual da qualidade do seu sono hoje?",
     "speech": "Defendo o sono de qualidade como pilar de energia e decisões acertadas.",
@@ -30,6 +33,7 @@
     ]
   },
   "Hygiene": {
+    "image": "aspect4.png",
     "importanceQuestion": "De 1 a 10, quão importante é manter bons hábitos de higiene para sua saúde?",
     "levelQuestion": "Qual o nível atual dos seus hábitos de higiene hoje?",
     "speech": "Manterei a higiene como escudo contra doenças e base para a confiança.",
@@ -40,6 +44,7 @@
     ]
   },
   "Emocional": {
+    "image": "aspect5.png",
     "importanceQuestion": "De 1 a 10, como você valoriza o autocontrole emocional e a resiliência?",
     "levelQuestion": "Qual o nível atual do seu autocontrole emocional hoje?",
     "speech": "Cultivarei autocontrole e resiliência para governar minha mente com sabedoria.",
@@ -50,6 +55,7 @@
     ]
   },
   "Mindfulness": {
+    "image": "aspect6.png",
     "importanceQuestion": "De 1 a 10, quão importante é manter foco e presença plena no dia a dia?",
     "levelQuestion": "Qual o nível atual do seu foco e presença hoje?",
     "speech": "Manterei foco e presença para honrar cada momento com intenção.",
@@ -60,6 +66,7 @@
     ]
   },
   "Learning": {
+    "image": "aspect7.png",
     "importanceQuestion": "De 1 a 10, como você valoriza aprender coisas novas constantemente?",
     "levelQuestion": "Qual o nível atual do seu aprendizado constante hoje?",
     "speech": "Investirei no aprendizado contínuo como chave para minha evolução.",
@@ -70,6 +77,7 @@
     ]
   },
   "Family": {
+    "image": "aspect8.png",
     "importanceQuestion": "De 1 a 10, quão importante é cuidar dos seus vínculos familiares?",
     "levelQuestion": "Qual o nível atual do cuidado com seus vínculos familiares hoje?",
     "speech": "Preservarei e fortalecerei meus laços familiares como núcleo de apoio.",
@@ -80,6 +88,7 @@
     ]
   },
   "Relationships": {
+    "image": "aspect9.png",
     "importanceQuestion": "De 1 a 10, quão importante é manter relações externas saudáveis?",
     "levelQuestion": "Qual o nível atual das suas relações externas hoje?",
     "speech": "Construirei conexões saudáveis que ampliem minha visão e força.",
@@ -90,6 +99,7 @@
     ]
   },
   "Financial": {
+    "image": "aspect10.png",
     "importanceQuestion": "De 1 a 10, como você valoriza sua segurança e liberdade financeira?",
     "levelQuestion": "Qual o nível atual da sua segurança e liberdade financeira hoje?",
     "speech": "Buscarei estabilidade financeira para garantir minha liberdade de escolha.",
@@ -100,6 +110,7 @@
     ]
   },
   "Purpose": {
+    "image": "aspect11.png",
     "importanceQuestion": "De 1 a 10, quão importante é ter propósito e metas de vida claras?",
     "levelQuestion": "Qual o nível atual de clareza do seu propósito e metas hoje?",
     "speech": "Viverei com propósito e metas claras, guiando cada passo com sentido.",
@@ -110,6 +121,7 @@
     ]
   },
   "Contribution": {
+    "image": "aspect12.png",
     "importanceQuestion": "De 1 a 10, como você valoriza contribuir para o mundo de forma positiva?",
     "levelQuestion": "Qual o nível atual da sua contribuição positiva hoje?",
     "speech": "Contribuirei para um mundo melhor, deixando marcas positivas.",
