@@ -301,10 +301,10 @@ function initCarousel() {
   function render() {
     const item = items[idx];
     img.src = item.img;
-    showPage(item.page);
   }
 
   render();
+  showPage('menu');
 
   let startX = 0;
   menuCarousel.addEventListener('touchstart', e => {
@@ -319,6 +319,11 @@ function initCarousel() {
       idx = (idx + 1) % items.length;
       render();
     }
+  });
+
+  menuCarousel.addEventListener('click', () => {
+    const item = items[idx];
+    showPage(item.page);
   });
 }
 
