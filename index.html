@@ -52,22 +52,28 @@
       </div>
     </section>
     <section id="tasks" class="page">
-      <h1>Tarefas</h1>
-      <div id="tasks-hub">
-        <button id="add-task-btn">Nova tarefa</button>
-        <button id="suggest-task-btn">Ver ideias</button>
+      <div id="tasks-main">
+        <h1>Tarefas</h1>
+        <div id="tasks-hub">
+          <button id="add-task-btn">Nova tarefa</button>
+          <button id="suggest-task-btn">Ver ideias</button>
+        </div>
+        <div id="tasks-pending">
+          <h2>Pendentes</h2>
+          <div class="task-group" id="pending-list"></div>
+        </div>
+        <div id="tasks-completed">
+          <h2>Concluídas</h2>
+          <div class="task-group" id="completed-list"></div>
+        </div>
+        <div id="tasks-overdue">
+          <h2>Atrasadas</h2>
+          <div class="task-group" id="overdue-list"></div>
+        </div>
       </div>
-      <div id="tasks-pending">
-        <h2>Pendentes</h2>
-        <div class="task-group" id="pending-list"></div>
-      </div>
-      <div id="tasks-completed">
-        <h2>Concluídas</h2>
-        <div class="task-group" id="completed-list"></div>
-      </div>
-      <div id="tasks-overdue">
-        <h2>Atrasadas</h2>
-        <div class="task-group" id="overdue-list"></div>
+      <div id="day-schedule">
+        <h2 id="schedule-title"></h2>
+        <div id="schedule-carousel"></div>
       </div>
     </section>
     <section id="laws" class="page">

@@ -180,7 +180,7 @@ function initApp(firstTime) {
     responses = JSON.parse(localStorage.getItem('responses') || '{}');
   }
   buildOptions();
-  initTasks(aspectKeys, tasksData);
+  initTasks(aspectKeys, tasksData, aspectsData);
   initLaws(aspectKeys, lawsData, statsColors);
   initStats(aspectKeys, responses, statsColors);
   initMindset(aspectKeys, mindsetData, statsColors);

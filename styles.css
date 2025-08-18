@@ -272,8 +272,41 @@ li:hover { transform: scale(1.02); }
   margin-bottom: 20px;
 }
 
+
 .task-group {
   margin-bottom: 20px;
+}
+
+#tasks {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+}
+
+#tasks-main,
+#day-schedule {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+#tasks-main {
+  overflow-y: auto;
+}
+
+#day-schedule {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  overflow-y: auto;
+}
+
+#tasks.show-schedule #tasks-main {
+  transform: translateY(-100%);
+}
+
+#tasks.show-schedule #day-schedule {
+  transform: translateY(-100%);
 }
 
 #laws-hub {
@@ -413,6 +446,65 @@ li:hover { transform: scale(1.02); }
   margin-bottom: 10px;
   border-radius: 8px;
   color: #fff;
+}
+
+#schedule-carousel {
+  display: flex;
+  transition: transform 0.3s ease;
+  width: 100%;
+}
+
+.schedule-period {
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 0;
+}
+
+.time-block {
+  position: relative;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2px;
+  width: 100%;
+  height: 60px;
+}
+.time-title {
+  font-size: 12px;
+}
+.task-icons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px;
+}
+.task-icons img {
+  width: 30px;
+  height: 30px;
+}
+.task-count {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  font-size: 10px;
+}
+.schedule-period.morning .time-block {
+  background: linear-gradient(to bottom, #40e0d0, #ffffff);
+  color: #40e0d0;
+}
+.schedule-period.afternoon .time-block {
+  background: linear-gradient(to bottom, #ffa500, #40e0d0);
+  color: #40e0d0;
+}
+.schedule-period.night .time-block {
+  background: linear-gradient(to bottom, #003366, #001a33);
+}
+.schedule-period.dawn .time-block {
+  background: linear-gradient(to bottom, #000000, #000814);
 }
 
 .accept-btn {
