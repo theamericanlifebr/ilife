@@ -331,5 +331,8 @@ function showPage(pageId) {
   document.querySelectorAll('.page').forEach(sec => sec.classList.remove('active'));
   const section = document.getElementById(pageId);
   if (section) section.classList.add('active');
+  if (window.innerWidth <= 600) {
+    menuCarousel.style.display = pageId === 'menu' ? 'flex' : 'none';
+  }
 }
 
